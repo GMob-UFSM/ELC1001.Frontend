@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, StatusBar } from 'react-native'
+import { View, Text, Image, TouchableOpacity, StyleSheet, StatusBar } from 'react-native'
+
+import Logo from '../../assets/images/logo.png'
 
 export default class Login extends Component {
     static navigationOptions = {
-        header: null,
-    };
+        header: null
+    }; 
 
     render() { 
         return (
@@ -12,17 +14,17 @@ export default class Login extends Component {
             <StatusBar backgroundColor="#C4D0D0" />
             <View style={styles.container}>
                 <View style={{flex: 1, justifyContent: "center", alignContent: "center"}}>
-                    <Text style={{color: "#FFF", fontSize: 70, marginTop: 30, alignSelf: "center"}}>balOO</Text>
+                    <Image style={{alignSelf: "center"}} source={Logo}/>
                     <Text style={{color: "#FFF", fontSize: 20, alignSelf: "center"}}>O seu guarda-roupas</Text>
                     <Text style={{color: "#FFF", fontSize: 20, alignSelf: "center"}}>conectado com a natureza!</Text>
                 </View>
-                <View style={{flex: 1, alignContent: "flex-start"}}>
+                <View style={{flex: 1, alignContent: "flex-start"}}> 
                     <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('SignIn')}>
                         <Text style={styles.text}>entrar</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('SignUp')}>
                          <Text style={styles.text}>cadastrar</Text>                 
-                    </TouchableOpacity>
+                    </TouchableOpacity> 
                     
                 </View>
             </View>

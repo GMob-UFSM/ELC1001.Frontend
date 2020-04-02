@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Feather'
 
 import ComporLook from '../telas/comporLook'
 import Looks from '../telas/looks'
-import MainMenu from '../telas/menuPrincipal'
+import MainMenu from '../telas/menuPrincipal'  
 import Calendar from '../telas/calendario'
 
 import Login from '../telas/auth'
@@ -16,16 +16,16 @@ import Sobre from '../telas/sobre'
 import Ajuda from '../telas/ajuda'
 
 import GuardaRoupa from '../telas/guarda-roupas'
-import Camisas from '../telas/guarda-roupas/camisas'
-import Calças from '../telas/guarda-roupas/calças'
-import Sapatos from '../telas/guarda-roupas/sapatos'
+import Camera from '../telas/guarda-roupas/adicionarPeça/camera'
+import Acrescentar from '../telas/guarda-roupas/adicionarPeça/acrescentar'
+import Publicar from '../telas/guarda-roupas/adicionarPeça/publicar'
+import Display from '../telas/guarda-roupas/display-peça'
 
 import DrawerScreen from './drawerRoutes'
+import Header from './tabBar'
 
 const DrawerRoutes = createDrawerNavigator({
  
-    
-    Login: Login ,
     MenuPrincipal: MainMenu,
     GuardaRoupa: GuardaRoupa, 
     Perfil: Perfil,
@@ -33,14 +33,14 @@ const DrawerRoutes = createDrawerNavigator({
     Ajuda: Ajuda, 
 
     MainMenu: MainMenu,
-    Looks: Looks ,
+    Looks: Looks,
     ComporLook: ComporLook,
     Calendar: Calendar,
 
-    Camisas: Camisas,
-    Sapatos: Sapatos,
-    Calças: Calças
-
+    Camera: Camera,
+    Acrescentar: Acrescentar,
+    Publicar: Publicar,
+    Display: Display,
 
 
 }, {
@@ -59,9 +59,13 @@ const StackRoutes = createStackNavigator({
     Looks: { screen: Looks },
     ComporLook: { screen: ComporLook },
     Calendar: { screen: Calendar },
-    Camisas: { screen: Camisas },
-    Calças: { screen: Calças },
-    Sapatos: { screen: Sapatos },
+    GuardaRoupa: { screen: GuardaRoupa },
+    Camera: { screen: Camera },
+    Acrescentar: { screen: Acrescentar },
+    Publicar: { screen: Publicar },
+    Display: { screen: Display },
+    Header: { screen: Header },
+    
  
 },  
     {
@@ -70,6 +74,8 @@ const StackRoutes = createStackNavigator({
                 backgroundColor: "#C58882"
             },
             headerLeft: <Icon.Button  name="menu" size={30} color="white" backgroundColor="#C58882" onPress={() => {navigation.dispatch(DrawerActions.toggleDrawer())} }/>,
+            headerRight: <Header />
+            
         })
     }
 );

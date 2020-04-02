@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { View, TextInput, Text, StyleSheet, TouchableOpacity, StatusBar, AsyncStorage } from 'react-native'
-import { StackActions, NavigationActions } from 'react-navigation';
+import { View, TextInput, Text, StyleSheet, TouchableOpacity, StatusBar } from 'react-native'
+import AsyncStorage  from '@react-native-community/async-storage';
 
 import api from '../../services/api'
 
@@ -28,23 +28,21 @@ export default class SignIn extends Component {
               email: this.state.email,
               password: this.state.password,
             });
-              
+
             await AsyncStorage.setItem('@Baloo:token', response.data.token);
-    
-            const resetAction = StackActions.reset({
-              index: 0,
-              actions: [
-                NavigationActions.navigate({ routeName: 'MainMenu' }),
-              ],
-            });
-            this.props.navigation.dispatch(resetAction);
+
+            
+            this.props.navigation.navigate('MainMenu')
           } catch (_err) {
+            console.log(_err)
             this.setState({ error: 'Houve um problema com o login, verifique suas credenciais!' });
           }
         }
       };
 
-
+      componentWillMount() {
+          this.forceUpdate();
+      }
 
     render () {
         return(
@@ -64,11 +62,16 @@ export default class SignIn extends Component {
                     onChangeText={this.handlePasswordChange}
                     autoCapitalize="none"
                     autoCorrect={false}/>
-
+                    
+                    <View style={{alignContent: "center", justifyContent: "center", flexDirection: "row"}}>
+                    <TouchableOpacity style={{margin: 10, marginTop: 50, alignSelf: "center"}} onPress={() => this.props.navigation.navigate('Login')}>
+                        <Text style={{fontSize: 18, color: "#4E3D42", alignSelf: "center"}}>cencelar</Text>
+                    </TouchableOpacity>
                     {this.state.error.length !== 0 && <Text style={styles.errorMessage}>{this.state.error}</Text>}
-                    <TouchableOpacity style={{margin: 40, marginTop: 50}} onPress={this.handleSignInPress}>
+                    <TouchableOpacity style={{margin: 10, marginTop: 50}} onPress={this.handleSignInPress}>
                         <Text style={{fontSize: 25, color: "#4E3D42", alignSelf: "center"}}>entrar</Text>
                     </TouchableOpacity>
+                    </View>
                 </View>
             </View>
         )
@@ -107,4 +110,5 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         marginHorizontal: 20,
     }
-})
+}) 
+

@@ -1,11 +1,23 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, ImageBackground, TouchableHighlight, Image} from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage';
 
 import looks from '../assets/images/looks.jpeg'
-import calendar from '../assets/images/calendar.jpeg'
+import calendar from '../assets/images/calendar.jpeg' 
 import comporlook from '../assets/images/comporlook.jpeg'
 
 export default class MainMenu extends Component {
+
+    async UNSAFE_componentWillMount(){
+        
+        const token = await AsyncStorage.getItem('@Baloo:token');
+        console.log("TOKEN MAIN MENU: " + token)
+    
+        if (token === null) 
+        this.props.navigation.navigate('Login')
+
+    }
+
     render() {
         return(
             <View style={styles.container}>

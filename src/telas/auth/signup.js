@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { View, TextInput, Text, StyleSheet, TouchableOpacity, TouchableHighlight, Image, StatusBar, AsyncStorage } from 'react-native'
-import { StackActions, NavigationActions } from 'react-navigation';
+import { View, TextInput, Text, StyleSheet, TouchableOpacity, TouchableHighlight, Image, StatusBar, ScrollView } from 'react-native'
 
 import api from '../../services/api'
 
@@ -14,10 +13,19 @@ export default class SignUp extends Component {
     state = {
         email: '',
         password: '',
+        username: '',
+        firstname: '',
+        lastname: '',
         error: '',
         success: '',
       };
       
+      handleFirstnameChange = (firstname) => {
+        this.setState({ firstname });
+      };
+      handleLastnameChange = (lastname) => {
+        this.setState({ lastname });
+      };
       handleUsernameChange = (username) => {
         this.setState({ username });
       };
@@ -40,6 +48,7 @@ export default class SignUp extends Component {
         } else {
           try {
             await api.post('/api/v1/user/register', {
+              name: {first: this.state.firstname, last: this.state.lastname},
               username: this.state.username,
               email: this.state.email,
               password: this.state.password,
@@ -49,19 +58,14 @@ export default class SignUp extends Component {
     
             setTimeout(this.goToLogin, 2500);
           } catch (_err) {
+            console.log(_err)
             this.setState({ error: 'Houve um problema com o cadastro, verifique os dados preenchidos!' });
           }
         }
       };
     
       goToLogin = () => {
-        const resetAction = StackActions.reset({
-          index: 0,
-          actions: [
-            NavigationActions.navigate({ routeName: 'SignIn' }),
-          ],
-        });
-        this.props.navigation.dispatch(resetAction);
+        this.props.navigation.navigate('Login')
       }
     
 
@@ -69,8 +73,23 @@ export default class SignUp extends Component {
         return (
             <View style={styles.container}>
                 <StatusBar hidden /> 
+                <ScrollView>
                 {this.state.success.length !== 0 && <Text style={styles.sucessMessage}>{this.state.success}</Text>}
                 <View style={styles.postContainer}>
+                  <View>
+                    <Text style={styles.text}>Qual é o seu nome?</Text>
+                    <TextInput style={styles.textInput} 
+                    value={this.state.firstname}
+                    onChangeText={this.handleFirstnameChange}
+                    autoCapitalize="none"
+                    autoCorrect={false}/>
+                    <Text style={styles.text}>Qual é o seu sobrenome?</Text>
+                    <TextInput style={styles.textInput} 
+                    value={this.state.lastname}
+                    onChangeText={this.handleLastnameChange}
+                    autoCapitalize="none"
+                    autoCorrect={false}/>
+                  </View>
                     <Text style={styles.text}>Esclha o seu nome de usúario</Text>
                     <TextInput style={styles.textInput} 
                     value={this.state.username}
@@ -83,7 +102,6 @@ export default class SignUp extends Component {
                     onChangeText={this.handleEmailChange}
                     autoCapitalize="none"
                     autoCorrect={false}/>
-
                     <Text style={styles.text}>Escolha uma senha</Text>
                     <TextInput secureTextEntry={true} style={styles.textInput} 
                     value={this.state.password}
@@ -105,6 +123,7 @@ export default class SignUp extends Component {
     
                     </View>
                 </View>
+                </ScrollView>
             </View>
         )
     }

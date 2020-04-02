@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { ScrollView, Text, View, TouchableHighlight, StyleSheet } from 'react-native'
 import { DrawerActions } from 'react-navigation'
+import AsyncStorage from '@react-native-community/async-storage';
 
 class DrawerScreen extends Component {
     
@@ -11,6 +12,13 @@ class DrawerScreen extends Component {
         this.props.navigation.dispatch(navigateAction);
         this.props.navigation.dispatch(DrawerActions.closeDrawer())
       }
+
+    onSignOut = async () => {
+           AsyncStorage.clear();
+           const token = await AsyncStorage.getItem("@Baloo:toke");
+           console.log("TOKEN DRAWER: " + token)
+           this.props.navigation.navigate('Login');
+    }                                       
 
     render() {
         return (
@@ -36,6 +44,10 @@ class DrawerScreen extends Component {
                         <Text style={{fontSize: 25, color: "white", marginLeft: -15}}>______</Text>
                         <TouchableHighlight style={{margin: -15}} onPress={() => this.props.navigation.navigate('Ajuda')}>
                             <Text style={styles.textStyle}>Ajuda</Text>
+                        </TouchableHighlight>
+                        <Text style={{fontSize: 25, color: "white", marginLeft: -15}}>______</Text>
+                        <TouchableHighlight style={{margin: -15}} onPress={this.onSignOut}>
+                            <Text style={styles.textStyle}>Sair</Text>
                         </TouchableHighlight>
                         <Text style={{fontSize: 25, color: "white", marginLeft: -15}}>______</Text>
                         
