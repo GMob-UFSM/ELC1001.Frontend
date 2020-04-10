@@ -78,12 +78,16 @@ export default class Acrescentar extends Component {
             <View style={styles.container}>
                 <View style={styles.boxContainer}>
                     <Text style={styles.text}>Peça</Text>
-                    <TextInput style={styles.textInput} 
-                    placeholder= "ex.: calçado"
-                    value={this.state.peça}
-                    onChangeText={this.handleBodyPartChange}
-                    autoCapitalize="none"
-                    autoCorrect={false}/>
+                    <View style={styles.textInput}>
+                    <Picker selectedValue = {this.state.peça} onValueChange = {this.handleBodyPartChange}>
+                        <Picker.Item label = "Cabeça" value = "head" />
+                        <Picker.Item label = "Tronco" value = "torso" />
+                        <Picker.Item label = "Pernas" value = "legs" />
+                        <Picker.Item label = "Troco + Pernas" value = "torso_legs" />
+                        <Picker.Item label = "Pés" value = "feet" />
+                        <Picker.Item label = "Acessório" value = "accessory" />
+                    </Picker>
+                    </View>
                 </View>
 
                 <View style={styles.boxContainer}>

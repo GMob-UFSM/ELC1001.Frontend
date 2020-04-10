@@ -15,6 +15,7 @@ export default class Camisas extends Component {
             token: '', 
             loading: false,
             refresh: true, 
+            total: 0,
         }
     }
 
@@ -29,21 +30,26 @@ export default class Camisas extends Component {
             token: AuthStr
         })
 
-        this.loadPage() //delete await
-
+        this.loadPage() 
         
     }
 
     async loadPage (pageNumber = this.state.page, shouldRefresh = false)  {  
+       
+        if(pageNumber > this.state.total){
+            console.log("FIM" + this.state.total)
+            return;
+        }
+
         try{   
             console.log("LOADPAGE")
 
             this.setState({ loading: true });
 
-            const response = await api.get(`/api/v1/garment?skip=${pageNumber*8}&limit=8`, { 'headers': { 'Authorization': this.state.token } });
+            const response = await api.get(`/api/v1/garment?skip=${pageNumber*20}&limit=20`, { 'headers': { 'Authorization': this.state.token } });
 
             console.log("RESPONDE.DATA: " + response)
-            const data = response.data.data;
+            const data = await response.data.data;
             /*Object.keys(response.data.data).map( (key, index)=>{
 
                 data.push(response.data.data[key]);
@@ -53,6 +59,10 @@ export default class Camisas extends Component {
 
             console.log("DATA: " + data)
             console.log("PAGE NUMBER: " + pageNumber)
+
+            const totalAmount = await response.data.totalAmount;
+
+            console.log("TOTAL: " + totalAmount)
                 
 
             this.setState({
@@ -60,6 +70,7 @@ export default class Camisas extends Component {
                 page: pageNumber + 1,
                 loading: false,
                 refresh: false,
+                total: Math.ceil(totalAmount / 20)//mudar o numero conforme o limit
             })
 
             console.log("PAGE NUMBER(2): " + this.state.page)
@@ -95,7 +106,7 @@ export default class Camisas extends Component {
                     console.log("ONENDREACHED: " + this.state.page);
                 }}}
                 onEndReachedThreshold={0.5}
-                onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
+                onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false;}}
                 ListFooterComponent={this.state.loading && <ActivityIndicator size={"small"} color={"#999"} style={{margin: 30}} />}
                 onRefresh={this.refreshList}
                 refreshing={this.state.refresh}

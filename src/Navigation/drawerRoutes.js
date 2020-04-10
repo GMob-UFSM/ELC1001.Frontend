@@ -26,10 +26,6 @@ class DrawerScreen extends Component {
                 <ScrollView>
                     <View style={{alignItems: 'center'}}>
                         <View style={{marginEnd: 50, marginTop: 30}}>
-                        <TouchableHighlight style={{margin: -15}} onPress={() => this.props.navigation.navigate('MainMenu')}>
-                            <Text style={styles.textStyle}>Menu Pricipal</Text>
-                        </TouchableHighlight>
-                        <Text style={{fontSize: 25, color: "white", marginLeft: -15}}>______</Text>
                         <TouchableHighlight style={{margin: -15}} onPress={() => this.props.navigation.navigate('GuardaRoupa')}>
                             <Text style={styles.textStyle}>Guarda-roupas</Text>
                         </TouchableHighlight>
