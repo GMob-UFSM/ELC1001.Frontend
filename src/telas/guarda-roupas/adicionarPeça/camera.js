@@ -31,6 +31,7 @@ export default class Camera extends Component {
   }
 
   SelectPicture = async () => {
+    AsyncStorage.removeItem("@Baloo:uri");
     const image = this.state.photos[this.state.index].node.image.uri;
     const data = base64.encode(image)
     AsyncStorage.setItem("@Baloo:uri", data);

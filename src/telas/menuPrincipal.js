@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, ImageBackground, TouchableHighlight, Image} from 'react-native'
+import { View, StyleSheet, ImageBackground, TouchableOpacity, Text} from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
 
 import looks from '../assets/images/looks.jpeg'
@@ -21,24 +21,21 @@ export default class MainMenu extends Component {
     render() {
         return(
             <View style={styles.container}>
-                <TouchableHighlight style={{flex: 1, borderRadius: 20, justifyContent: "center", backgroundColor: "#C4D0D0"}} onPress={() => this.props.navigation.navigate('Looks')}>
-                    <Image style={styles.button1}
-                        imageStyle={{ borderRadius: 20 }}
-                        source={looks}
-                    />
-                </TouchableHighlight>
-                <TouchableHighlight style={{flex: 1, borderRadius: 20, justifyContent: "center", backgroundColor: "#C4D0D0"}} onPress={() => this.props.navigation.navigate('Calendar')}>
-                    <ImageBackground style={styles.button1}
-                    imageStyle={{ borderRadius: 20 }}
-                    source={calendar}
-                    />
-                </TouchableHighlight>
-                <TouchableHighlight style={{flex: 1, borderRadius: 20, justifyContent: "center", backgroundColor: "#C4D0D0"}} onPress={() => this.props.navigation.navigate('ComporLook')}>
-                    <ImageBackground style={styles.button1}
-                    imageStyle={{ borderRadius: 20 }}
-                    source={comporlook}
-                    />
-                </TouchableHighlight>
+                <ImageBackground source={looks} style={styles.button1} imageStyle={{ borderRadius: 20 }}>
+                    <TouchableOpacity style={styles.textContainer} onPress={() => this.props.navigation.navigate('Looks')}>
+                        <Text style={styles.text}>looks</Text>
+                    </TouchableOpacity>
+                </ImageBackground>
+                <ImageBackground source={calendar} style={styles.button1} imageStyle={{ borderRadius: 20 }}>
+                    <TouchableOpacity style={styles.textContainer} onPress={() => this.props.navigation.navigate('Calendar')}>
+                        <Text style={styles.text}>calendario</Text>
+                    </TouchableOpacity>
+                </ImageBackground>
+                <ImageBackground source={comporlook} style={styles.button1} imageStyle={{ borderRadius: 20 }}>
+                    <TouchableOpacity style={styles.textContainer} onPress={() => this.props.navigation.navigate('ComporLook')}>
+                        <Text style={styles.text}>compor look</Text>
+                    </TouchableOpacity>
+                </ImageBackground>
             </View>
         )
     }
@@ -52,21 +49,29 @@ const styles = StyleSheet.create({
         alignItems: "center", 
         backgroundColor: "#C4D0D0",
     },
-    button: {
-        flexDirection: 'row',
-        justifyContent: 'space-between', 
-        alignItems: "center",
-        margin: 3,
-        width: 390,
-        height: 180,
-        backgroundColor: "#FFF",
-        borderRadius: 20
-    },
     button1: {
         borderRadius: 20, 
         flex: 1,
         width: 390,
-        margin: 3
-    }
+        margin: 3,
+        justifyContent: "center"
+    },
+    textContainer: {
+        borderRadius: 16,
+        backgroundColor: "#FFF",
+        borderWidth: 3,
+        borderColor: "#4E3D42",
+        width: "45%",
+        height: 55,
+        alignSelf: "center",
+        justifyContent: "center"
+    },
+    text: {
+        fontSize: 20,
+        color: "#4E3D42",
+        alignSelf: "center",
+        margin: 3,
+        fontFamily: "Rubik",
+    }, 
 
 })

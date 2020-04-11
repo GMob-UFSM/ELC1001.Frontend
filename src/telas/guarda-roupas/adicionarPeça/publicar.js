@@ -9,37 +9,33 @@ import Enjoei from '../../../assets/icons/enjoei.svg'
 import Instagram from '../../../assets/icons/botão_instagram.svg'
 import ComporLook from '../../../assets/icons/comporlook.svg'
 import Guardar from '../../../assets/icons/looks.svg'
+import noimage from '../../../assets/images/noimage.png'
 
 export default class Publicar extends Component {
     state = {
-        picture: ''
+        picture: '',
     }
 
     getPicture = async () => {
         const uri = await AsyncStorage.getItem('@Baloo:uri');
         const image = base64.decode(uri)
         AsyncStorage.removeItem('@Baloo:uri');
-        return image
-    }
-
-    async componentDidMount() {
-        const uri = await AsyncStorage.getItem('@Baloo:uri');
-        const image = base64.decode(uri)
-        AsyncStorage.removeItem('@Baloo:uri');
-
+        
         this.setState({
             picture: image
         })
-        console.log('picture: ' + this.state.picture)
     }
-
+ 
+    componentDidMount(){
+        this.getPicture();
+    }
 
     render() {
         const image = this.state.picture;
         return (
             <View style={styles.container}>
                 <View style={styles.imageContainer}>
-                    <Image source={image} style={styles.picture}/> 
+                    <Image source={image ? {uri: image} : noimage} style={styles.picture}/> 
                     <TouchableHighlight style={styles.shareButton}>
                         <Compartilhar width={76} height={76} marginTop={-15} alignSelf={'center'}/>
                     </TouchableHighlight>
