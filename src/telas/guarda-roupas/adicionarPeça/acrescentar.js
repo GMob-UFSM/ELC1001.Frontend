@@ -53,7 +53,7 @@ export default class Acrescentar extends Component {
                 manufactor: this.state.marca,
                 description: this.state.descriçao,
                 image_urls: uri
-            })
+            })// Delete data and use params
 
             await api.post('/api/v1/garment/create', data,
             { 'headers': { 'Authorization': AuthStr } });

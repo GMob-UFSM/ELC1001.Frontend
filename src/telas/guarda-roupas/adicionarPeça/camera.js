@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import base64 from 'react-native-base64'
 
-import Capture from '../../../assets/icons/Camera.svg'
+import Capture from '../../../assets/icons/Snap.svg'
 import Inverter from '../../../assets/icons/inverter.svg'
 import okButton from '../../../assets/buttons/okbutton.png'
 
@@ -38,7 +38,7 @@ export default class Camera extends Component {
 
     this.toggleModal();
 
-    this.props.navigation.navigate('Acrescentar') //change to 'Acrescentar'
+    this.props.navigation.navigate('Acrescentar') 
   }
 
   takePicture = async () => {

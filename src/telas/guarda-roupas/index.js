@@ -38,7 +38,7 @@ export default class Camisas extends Component {
        
         if(pageNumber > this.state.total){
             console.log("FIM" + this.state.total)
-            return;
+            return
         }
 
         try{   
@@ -50,12 +50,6 @@ export default class Camisas extends Component {
 
             console.log("RESPONDE.DATA: " + response)
             const data = await response.data.data;
-            /*Object.keys(response.data.data).map( (key, index)=>{
-
-                data.push(response.data.data[key]);
-                console.log("KEY: ", key , data[key])
-                console.log("INDEX: ", index)
-            });*/
 
             console.log("DATA: " + data)
             console.log("PAGE NUMBER: " + pageNumber)
@@ -70,7 +64,7 @@ export default class Camisas extends Component {
                 page: pageNumber + 1,
                 loading: false,
                 refresh: false,
-                total: Math.ceil(totalAmount / 20)//mudar o numero conforme o limit
+                total: Math.ceil(totalAmount / 20),
             })
 
             console.log("PAGE NUMBER(2): " + this.state.page)
@@ -85,7 +79,7 @@ export default class Camisas extends Component {
         this.setState({ refresh: true })
 
         console.log("REFRESH LIST");
-        await this.loadPage(0, true);//change first parameter to 0
+        await this.loadPage(0, true);
 
         this.setState({ refresh: false })
     }
@@ -93,6 +87,7 @@ export default class Camisas extends Component {
     render() {
         console.log("GARMENT: " + this.state.garment)
         console.log(this.state.garment.length)
+        console.log("TOTAL" + this.state.total)
         return ( 
             <View style={styles.container}>
                 <View style={{flex: 9, backgroundColor: "#C4D0D0"}} >
@@ -113,7 +108,7 @@ export default class Camisas extends Component {
                 keyExtractor={post => String(post.id)}
                 renderItem={({ item }) => (
                      <View>  
-                         <TouchableHighlight style={styles.garmentBox} >
+                         <TouchableHighlight style={styles.garmentBox} onPress={() => this.props.navigation.navigate('Display')}>
                             <Image style={{width: 170, height: 180, alignSelf: "center", margin: 10}} source={{uri: item.default_image}} />
                         </TouchableHighlight>          
                     </View>
