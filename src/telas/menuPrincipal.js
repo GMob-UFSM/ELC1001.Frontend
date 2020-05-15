@@ -20,22 +20,28 @@ export default class MainMenu extends Component {
 
     render() {
         return(
-            <View style={styles.container}>
-                <ImageBackground source={looks} style={styles.button1} imageStyle={{ borderRadius: 20 }}>
-                    <TouchableOpacity style={styles.textContainer} onPress={() => this.props.navigation.navigate('Looks')}>
-                        <Text style={styles.text}>looks</Text>
-                    </TouchableOpacity>
-                </ImageBackground>
-                <ImageBackground source={calendar} style={styles.button1} imageStyle={{ borderRadius: 20 }}>
-                    <TouchableOpacity style={styles.textContainer} onPress={() => this.props.navigation.navigate('Calendar')}>
-                        <Text style={styles.text}>calendario</Text>
-                    </TouchableOpacity>
-                </ImageBackground>
-                <ImageBackground source={comporlook} style={styles.button1} imageStyle={{ borderRadius: 20 }}>
-                    <TouchableOpacity style={styles.textContainer} onPress={() => this.props.navigation.navigate('ComporLook')}>
-                        <Text style={styles.text}>compor look</Text>
-                    </TouchableOpacity>
-                </ImageBackground>
+            <View style={styles.flexContainer}>
+                <View style={styles.flexStart}>
+
+                    <View style={styles.element}>
+
+                    </View>
+                </View>
+
+                <View style={styles.flexSecond}><Text>a </Text></View>
+
+                <View style={styles.flexThird}>
+                    <View style={styles.containerImages}>
+
+                    </View>
+                    <View style={styles.containerImages}>
+
+                    </View>
+                </View>
+
+                <View style={styles.flexFourth}>
+
+                </View>
             </View>
         )
     }
@@ -72,6 +78,41 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         margin: 3,
         fontFamily: "Rubik",
-    }, 
-
+    },
+    flexContainer: {
+        display: "flex",
+        flexDirection: "column",
+    },
+    flexStart: {
+        backgroundColor: "#fff",
+        height: "15%",
+        display: "flex",
+        flexDirection: "row",
+        paddingTop: 30
+    },
+    flexSecond: {
+        backgroundColor: "#d09f9b",
+        height: "5%"
+    },
+    flexThird: {
+        backgroundColor: "#ffffff",
+        height: "30%",
+        display: "flex",
+        flexDirection: "row",
+        padding: 10
+    },
+    flexFourth: {
+        backgroundColor: "#d1b2b1",
+        height: "50%"
+    },
+    containerImages: {
+        marginRight: 5,
+        marginLeft: 5,
+        width: "47.5%",
+        height: "100%",
+        backgroundColor: "#fff",
+        borderColor: "#808080",
+        borderWidth: 1,
+        borderRadius: 10
+    },
 })
