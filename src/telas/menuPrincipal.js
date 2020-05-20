@@ -3,6 +3,7 @@ import { View, StyleSheet, ImageBackground, TouchableOpacity, Text } from 'react
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCloud, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import AsyncStorage from '@react-native-community/async-storage';
+import Look from '../assets/icons/looks.svg';
 
 import looks from '../assets/images/looks.jpeg'
 import calendar from '../assets/images/calendar.jpeg'
@@ -60,7 +61,20 @@ export default class MainMenu extends Component {
                 </View>
 
                 <View style={styles.flexFourth}>
+                    <View style={styles.flexFourthRow}>
+                        <View style={styles.flexFourthElements}>
+                            <View style={styles.flexFourthIcon}>
+                                <Look width={90} height={90} />
+                            </View>
+                            <Text>a</Text>
+                        </View>
+                        <View style={styles.flexFourthElements}></View>
+                    </View>
 
+                    <View style={styles.flexFourthRow}>
+                        <View style={styles.flexFourthElements}></View>
+                        <View style={styles.flexFourthElements}></View>
+                    </View>
                 </View>
             </View>
         )
@@ -105,9 +119,10 @@ const styles = StyleSheet.create({
     },
     flexStart: {
         backgroundColor: "#fff",
-        height: "15%",
+        height: 100,
         display: "flex",
         flexDirection: "row",
+        justifyContent: "center"
     },
     flexSecond: {
         backgroundColor: "#d09f9b",
@@ -180,5 +195,24 @@ const styles = StyleSheet.create({
     },
     element5: {
         paddingTop: 30
+    },
+    flexFourthRow: {
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "row",
+          width: "100%",
+    },
+    flexFourthElements: {
+           display: "flex",
+           flexDirection: "column",
+           margin: 20,
+           width: 110,
+           height: 110,
+           backgroundColor: "#fff",
+           borderColor: "#808080",
+           borderWidth: 1,
+    },
+    flexFourthIcon: {
+           alignSelf: "center",
     }
 })
