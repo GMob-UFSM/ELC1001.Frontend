@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, ImageBackground, TouchableOpacity, Text } from 'react-native'
+import { View, StyleSheet, ImageBackground, TouchableOpacity, Text, TouchableHighlight } from 'react-native'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCloud, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import AsyncStorage from '@react-native-community/async-storage';
 import Look from '../assets/icons/looks.svg';
+import ComporLook from '../assets/icons/comporlook.svg';
 
 import looks from '../assets/images/looks.jpeg'
 import calendar from '../assets/images/calendar.jpeg'
@@ -62,18 +63,46 @@ export default class MainMenu extends Component {
 
                 <View style={styles.flexFourth}>
                     <View style={styles.flexFourthRow}>
-                        <View style={styles.flexFourthElements}>
-                            <View style={styles.flexFourthIcon}>
-                                <Look width={90} height={90} />
+
+                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Looks')}>
+                            <View style={styles.flexFourthElements}>
+                                <View style={styles.flexFourthIcon}>
+                                    <Look width={90} height={90} />
+                                </View>
+                                <Text style={styles.flexFourthText} >looks</Text>
                             </View>
-                            <Text>a</Text>
-                        </View>
-                        <View style={styles.flexFourthElements}></View>
+                        </TouchableHighlight>
+
+                        <TouchableHighlight onPress={() => this.props.navigation.navigate('ComporLook')}>
+                            <View style={styles.flexFourthElements}>
+                                <View style={styles.flexFourthIcon}>
+                                    <ComporLook width={90} height={90} />
+                                </View>
+                                <Text style={styles.flexFourthText} >compor looks</Text>
+                            </View>
+                        </TouchableHighlight>
+
                     </View>
 
                     <View style={styles.flexFourthRow}>
-                        <View style={styles.flexFourthElements}></View>
-                        <View style={styles.flexFourthElements}></View>
+                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Calendar')}>
+                            <View style={styles.flexFourthElements}>
+                                <View style={styles.flexFourthIcon}>
+                                    <Look width={90} height={90} />
+                                </View>
+                                <Text style={styles.flexFourthText} >espaço troca</Text>
+                            </View>
+                        </TouchableHighlight>
+
+                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Calendar')}>
+                            <View style={styles.flexFourthElements}>
+                                <View style={styles.flexFourthIcon}>
+                                    <ComporLook width={90} height={90} />
+                                </View>
+                                <Text style={styles.flexFourthText} >calendário</Text>
+                            </View>
+                        </TouchableHighlight>
+
                     </View>
                 </View>
             </View>
@@ -205,14 +234,16 @@ const styles = StyleSheet.create({
     flexFourthElements: {
            display: "flex",
            flexDirection: "column",
-           margin: 20,
+           margin: 15,
            width: 110,
            height: 110,
-           backgroundColor: "#fff",
-           borderColor: "#808080",
-           borderWidth: 1,
     },
     flexFourthIcon: {
            alignSelf: "center",
+    },
+    flexFourthText: {
+            textAlign: "center",
+            color: "#4d3d42",
+            fontSize: 16,
     }
 })
