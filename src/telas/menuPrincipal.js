@@ -50,7 +50,7 @@ export default class MainMenu extends Component {
                     </View>
                 </View>
 
-                <View style={styles.flexSecond}><Text style={{ alignSelf: "center", paddingVertical: 8, color: "#F2F2F2" }}>Dia nublado, que tal ser um ponto de cor? </Text></View>
+                <View style={styles.flexSecond}><Text style={{ alignSelf: "center", marginVertical: 8, color: "#F2F2F2" }}>Dia nublado, que tal ser um ponto de cor? </Text></View>
 
                 <View style={styles.flexThird}>
                     <View style={styles.containerImages}>
@@ -179,8 +179,10 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     element: {
-        paddingLeft: 10,
-        paddingTop: 40
+        // paddingLeft: 10,
+        // paddingTop: 40
+        marginRight: 8,
+        marginTop: 40,
     },
 
     textTodayElement: {
@@ -189,8 +191,9 @@ const styles = StyleSheet.create({
     },
 
     element2: {
-        paddingTop: 15,
-        paddingLeft: 15
+        // paddingTop: 15,
+        // paddingLeft: 15
+        marginTop: 15,
     },
 
     temperatureTextElement1: {
@@ -211,11 +214,13 @@ const styles = StyleSheet.create({
     },
 
     element3: {
-        paddingTop: 15,
+        marginTop: 10
     },
     element4: {
-        paddingTop: 40,
-        paddingLeft: 45
+        // paddingTop: 40,
+        // paddingLeft: 45,
+        marginTop: 40,
+        marginLeft: 28
     },
     textTomorrowElement: {
         alignSelf: "center",
@@ -223,20 +228,20 @@ const styles = StyleSheet.create({
         color: "#E7A399"
     },
     element5: {
-        paddingTop: 30
+        marginTop: 30,
     },
     flexFourthRow: {
-          display: "flex",
-          justifyContent: "center",
-          flexDirection: "row",
-          width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "row",
+        width: "100%",
     },
     flexFourthElements: {
-           display: "flex",
-           flexDirection: "column",
-           margin: 15,
-           width: 110,
-           height: 110,
+       display: "flex",
+       flexDirection: "column",
+       margin: 15,
+       width: 110,
+       height: 110,
     },
     flexFourthIcon: {
            alignSelf: "center",
