@@ -9,6 +9,7 @@ import ComporLook from '../assets/icons/comporlook.svg';
 import looks from '../assets/images/looks.jpeg'
 import calendar from '../assets/images/calendar.jpeg'
 import comporlook from '../assets/images/comporlook.jpeg'
+import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 
 export default class MainMenu extends Component {
 
@@ -25,32 +26,32 @@ export default class MainMenu extends Component {
     render() {
         return (
             <View style={styles.flexContainer}>
-                <View style={styles.flexStart}>
+                <View style={flexStartStyle.flexStart}>
 
-                    <View style={styles.element}>
-                        <Text style={styles.textTodayElement} > HOJE </Text>
+                    <View style={flexStartStyle.element}>
+                        <Text style={flexStartStyle.textTodayElement} > HOJE </Text>
+
+                        <View style={flexStartStyle.temperatureInfo}>
+                            <Text style={flexStartStyle.temperatureTextInfo1}>10&deg;</Text>
+                            <Text style={flexStartStyle.temperatureTextInfo2}> temperatura </Text>
+                            <Text style={flexStartStyle.temperatureTextInfo3}>máx. 18&deg;</Text>
+                        </View>
+
+
+                        <View style={flexStartStyle.iconCloud}>
+                            <FontAwesomeIcon icon={faCloud} size={50} color={"#1B807E"} />
+                        </View>
+
                     </View>
 
-                    <View style={styles.element2}>
-                        <Text style={styles.temperatureTextElement1}>10&deg;</Text>
-                        <Text style={styles.temperatureTextElement2}> temperatura </Text>
-                        <Text style={styles.temperatureTextElement3}>máx. 18&deg;</Text>
-                    </View>
-
-                    <View style={styles.element3}>
-                        <FontAwesomeIcon icon={faCloud} size={50} color={"#1B807E"} />
-                    </View>
-
-                    <View style={styles.element4}>
-                        <Text style={styles.textTomorrowElement}> AMANHÃ </Text>
-                    </View>
-
-                    <View style={styles.element5}>
+                    <View style={flexStartStyle.tomorrowInfo}>
+                        <Text style={flexStartStyle.textTomorrowElement}> AMANHÃ </Text>
                         <FontAwesomeIcon icon={faAngleRight} color={"#E7A399"} size={50} />
                     </View>
+
                 </View>
 
-                <View style={styles.flexSecond}><Text style={{ alignSelf: "center", marginVertical: 8, color: "#F2F2F2" }}>Dia nublado, que tal ser um ponto de cor? </Text></View>
+                <View style={styles.flexSecond}><Text style={{ color: "#F2F2F2" }}>Dia nublado, que tal ser um ponto de cor? </Text></View>
 
                 <View style={styles.flexThird}>
                     <View style={styles.containerImages}>
@@ -146,16 +147,10 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "column",
     },
-    flexStart: {
-        backgroundColor: "#fff",
-        height: 100,
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "center"
-    },
+
     flexSecond: {
         backgroundColor: "#d09f9b",
-        height: "5%"
+        alignItems: "center"
     },
     flexThird: {
         backgroundColor: "#ffffff",
@@ -178,58 +173,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10
     },
-    element: {
-        // paddingLeft: 10,
-        // paddingTop: 40
-        marginRight: 8,
-        marginTop: 40,
-    },
 
-    textTodayElement: {
-        color: "#4E3D42",
-        fontSize: 18,
-    },
-
-    element2: {
-        // paddingTop: 15,
-        // paddingLeft: 15
-        marginTop: 15,
-    },
-
-    temperatureTextElement1: {
-        fontSize: 30,
-        fontWeight: "bold",
-        textAlign: "center",
-        color: "#4E3D42",
-    },
-
-    temperatureTextElement2: {
-        color: "#1B807E",
-        textAlign: "center"
-    },
-
-    temperatureTextElement3: {
-        color: "#E7A399",
-        alignSelf: "center"
-    },
-
-    element3: {
-        marginTop: 10
-    },
-    element4: {
-        // paddingTop: 40,
-        // paddingLeft: 45,
-        marginTop: 40,
-        marginLeft: 28
-    },
-    textTomorrowElement: {
-        alignSelf: "center",
-        fontSize: 18,
-        color: "#E7A399"
-    },
-    element5: {
-        marginTop: 30,
-    },
     flexFourthRow: {
         display: "flex",
         justifyContent: "center",
@@ -237,18 +181,74 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     flexFourthElements: {
-       display: "flex",
-       flexDirection: "column",
-       margin: 15,
-       width: 110,
-       height: 110,
+        display: "flex",
+        flexDirection: "column",
+        margin: 15,
+        width: 110,
+        height: 110,
     },
     flexFourthIcon: {
-           alignSelf: "center",
+        alignSelf: "center",
     },
     flexFourthText: {
-            textAlign: "center",
-            color: "#4d3d42",
-            fontSize: 16,
+        textAlign: "center",
+        color: "#4d3d42",
+        fontSize: 16,
+    }
+})
+
+
+const flexStartStyle = StyleSheet.create({
+    flexStart: {
+        backgroundColor: "#fff",
+        height: 100,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
+    },
+
+    element: {
+        flexDirection: "row",
+        alignItems: "center",
+    },
+
+    temperatureTextInfo1: {
+        fontSize: 30,
+        fontWeight: "bold",
+        textAlign: "center",
+        color: "#4E3D42",
+    },
+
+
+    temperatureTextInfo2: {
+        color: "#1B807E",
+        textAlign: "center"
+    },
+
+    temperatureTextInfo3: {
+        color: "#E7A399",
+        alignSelf: "center"
+    },
+
+    textTodayElement: {
+        color: "#4E3D42",
+        fontSize: 18,
+        marginRight: 10
+    },
+
+    iconCloud: {
+        alignSelf: "flex-start"
+    },
+
+    tomorrowInfo: {
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+
+    textTomorrowElement: {
+        fontSize: 18,
+        color: "#E7A399"
     }
 })
