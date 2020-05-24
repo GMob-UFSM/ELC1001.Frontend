@@ -1,15 +1,19 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, ImageBackground, TouchableOpacity, Text, TouchableHighlight } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage';
+import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
+
+/* Icons */
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCloud, faAngleRight } from '@fortawesome/free-solid-svg-icons';
-import AsyncStorage from '@react-native-community/async-storage';
 import Look from '../assets/icons/looks.svg';
 import ComporLook from '../assets/icons/comporlook.svg';
+import Calendario from '../assets/icons/calendario.svg';
+import EspacoTroca from '../assets/icons/espacotroca.svg';
 
 import looks from '../assets/images/looks.jpeg'
 import calendar from '../assets/images/calendar.jpeg'
 import comporlook from '../assets/images/comporlook.jpeg'
-import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 
 export default class MainMenu extends Component {
 
@@ -55,52 +59,55 @@ export default class MainMenu extends Component {
 
                 <View style={styles.flexThird}>
                     <View style={styles.containerImages}>
-
                     </View>
                     <View style={styles.containerImages}>
 
                     </View>
                 </View>
 
-                <View style={styles.flexFourth}>
-                    <View style={styles.flexFourthRow}>
+                <View style={flexFourthStyle.flexFourth}>
+                    <View style={flexFourthStyle.flexRow}>
 
                         <TouchableHighlight onPress={() => this.props.navigation.navigate('Looks')}>
-                            <View style={styles.flexFourthElements}>
-                                <View style={styles.flexFourthIcon}>
+                            <View style={flexFourthStyle.flexElements}>
+                                <View style={flexFourthStyle.flexIcon}>
                                     <Look width={90} height={90} />
                                 </View>
-                                <Text style={styles.flexFourthText} >looks</Text>
+                                <Text style={flexFourthStyle.flexText} >looks</Text>
                             </View>
                         </TouchableHighlight>
 
                         <TouchableHighlight onPress={() => this.props.navigation.navigate('ComporLook')}>
-                            <View style={styles.flexFourthElements}>
-                                <View style={styles.flexFourthIcon}>
+                            <View style={flexFourthStyle.flexElements}>
+                                <View style={flexFourthStyle.flexIcon}>
                                     <ComporLook width={90} height={90} />
                                 </View>
-                                <Text style={styles.flexFourthText} >compor looks</Text>
+                                <Text style={flexFourthStyle.flexText} >compor looks</Text>
                             </View>
                         </TouchableHighlight>
 
                     </View>
 
-                    <View style={styles.flexFourthRow}>
-                        <TouchableHighlight onPress={() => this.props.navigation.navigate('Calendar')}>
-                            <View style={styles.flexFourthElements}>
-                                <View style={styles.flexFourthIcon}>
-                                    <Look width={90} height={90} />
+                    <View style={flexFourthStyle.flexRow}>
+                        <TouchableHighlight onPress={() => this.props.navigation.navigate('MainMenu')}>
+                            <View style={flexFourthStyle.flexElements}>
+                                <View style={flexFourthStyle.flexIcon}>
+                                    <View style={flexFourthStyle.tradeIconContainer}>
+                                        <View style={flexFourthStyle.tradeIcon}>
+                                            <EspacoTroca width={50} height={50} />
+                                        </View>
+                                    </View>
                                 </View>
-                                <Text style={styles.flexFourthText} >espaço troca</Text>
+                                <Text style={flexFourthStyle.flexText} >espaço troca</Text>
                             </View>
                         </TouchableHighlight>
 
                         <TouchableHighlight onPress={() => this.props.navigation.navigate('Calendar')}>
-                            <View style={styles.flexFourthElements}>
-                                <View style={styles.flexFourthIcon}>
-                                    <ComporLook width={90} height={90} />
+                            <View style={flexFourthStyle.flexElements}>
+                                <View style={flexFourthStyle.flexIcon}>
+                                    <Calendario width={90} height={90} />
                                 </View>
-                                <Text style={styles.flexFourthText} >calendário</Text>
+                                <Text style={flexFourthStyle.flexText} >calendário</Text>
                             </View>
                         </TouchableHighlight>
 
@@ -112,6 +119,16 @@ export default class MainMenu extends Component {
 }
 
 const styles = StyleSheet.create({
+//    button: {
+//        flexDirection: 'row',
+//        justifyContent: 'space-between',
+//        alignItems: "center",
+//        margin: 3,
+//        width: 390,
+//        height: 180,
+//        backgroundColor: "#FFF",
+//        borderRadius: 20
+//    },
     container: {
         flex: 1,
         flexDirection: 'column',
@@ -159,10 +176,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         padding: 10
     },
-    flexFourth: {
-        backgroundColor: "#d1b2b1",
-        height: "50%"
-    },
     containerImages: {
         marginRight: 5,
         marginLeft: 5,
@@ -174,27 +187,6 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
 
-    flexFourthRow: {
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: "row",
-        width: "100%",
-    },
-    flexFourthElements: {
-        display: "flex",
-        flexDirection: "column",
-        margin: 15,
-        width: 110,
-        height: 110,
-    },
-    flexFourthIcon: {
-        alignSelf: "center",
-    },
-    flexFourthText: {
-        textAlign: "center",
-        color: "#4d3d42",
-        fontSize: 16,
-    }
 })
 
 
@@ -250,5 +242,51 @@ const flexStartStyle = StyleSheet.create({
     textTomorrowElement: {
         fontSize: 18,
         color: "#E7A399"
+    }
+})
+
+const flexFourthStyle = StyleSheet.create({
+    flexFourth: {
+        backgroundColor: "#d1b2b1",
+        height: "50%"
+    },
+    flexRow: {
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "row",
+        width: "100%",
+    },
+    flexElements: {
+        display: "flex",
+        flexDirection: "column",
+        margin: 15,
+        width: 110,
+        height: 110,
+    },
+    flexIcon: {
+        alignSelf: "center",
+    },
+    flexText: {
+        textAlign: "center",
+        color: "#4d3d42",
+        fontSize: 16,
+    },
+    tradeIconContainer: {
+        width: 90,
+        height: 90,
+        marginLeft: 20,
+        alignSelf: "center",
+    },
+    tradeIcon: {
+        width: 65,
+        height: 65,
+        backgroundColor: "#fff",
+        borderWidth: 2.5,
+        borderRadius: 40,
+        borderColor: "#4d3d42",
+        display: "flex",
+        justifyContent: "center",
+        paddingLeft: 5,
+        marginTop: 8,
     }
 })
