@@ -16,13 +16,11 @@ import calça from '../assets/images/calça.png'
 
 export default class MainMenu extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            heigth: Dimensions.get('window').height
+            height: Dimensions.get('window').height
         }
-
-        console.log("abacate " + this.state.heigth);
     }
 
     async UNSAFE_componentWillMount() {
@@ -38,100 +36,105 @@ export default class MainMenu extends Component {
 
     render() {
         return (
-            <ScrollView contentContainerStyle={{ flex: 1 }}>
-                <View style={{ ...styles.flexContainer, height: this.state.heigth }}>
-                    <View style={flexStartStyle.flexStart}>
+            <View style={{ flexGrow: 1 }}>
+                <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                    <View style={styles.flexContainer}>
 
-                        <View style={flexStartStyle.element}>
-                            <Text style={flexStartStyle.textTodayElement} > HOJE </Text>
+                        <View style={flexStartStyle.flexStart}>
 
-                            <View style={flexStartStyle.temperatureInfo}>
-                                <Text style={flexStartStyle.temperatureTextInfo1}>10&deg;</Text>
-                                <Text style={flexStartStyle.temperatureTextInfo2}> temperatura </Text>
-                                <Text style={flexStartStyle.temperatureTextInfo3}>máx. 18&deg;</Text>
+                            <View style={flexStartStyle.element}>
+                                <Text style={flexStartStyle.textTodayElement} > HOJE </Text>
+
+                                <View style={flexStartStyle.temperatureInfo}>
+                                    <Text style={flexStartStyle.temperatureTextInfo1}>10&deg;</Text>
+                                    <Text style={flexStartStyle.temperatureTextInfo2}> temperatura </Text>
+                                    <Text style={flexStartStyle.temperatureTextInfo3}>máx. 18&deg;</Text>
+                                </View>
+
+
+                                <View style={flexStartStyle.iconCloud}>
+                                    <FontAwesomeIcon icon={faCloud} size={50} color={"#1B807E"} />
+                                </View>
+
                             </View>
 
-
-                            <View style={flexStartStyle.iconCloud}>
-                                <FontAwesomeIcon icon={faCloud} size={50} color={"#1B807E"} />
+                            <View style={flexStartStyle.tomorrowInfo}>
+                                <Text style={flexStartStyle.textTomorrowElement}> AMANHÃ </Text>
+                                <FontAwesomeIcon icon={faAngleRight} color={"#E7A399"} size={50} />
                             </View>
 
                         </View>
 
-                        <View style={flexStartStyle.tomorrowInfo}>
-                            <Text style={flexStartStyle.textTomorrowElement}> AMANHÃ </Text>
-                            <FontAwesomeIcon icon={faAngleRight} color={"#E7A399"} size={50} />
+                        <View style={styles.flexSecond}><Text style={{ color: "#F2F2F2" }}>Dia nublado, que tal ser um ponto de cor? </Text></View>
+
+                        <View style={flexThirdStyle.flexThird}>
+                            <View style={flexThirdStyle.containerImages}>
+                                <ImageBackground style={flexThirdStyle.image}
+                                    imageStyle={{ borderRadius: 20 }}
+                                    source={camisas}
+                                />
+                            </View>
+                            <View style={flexThirdStyle.containerImages}>
+                                <ImageBackground style={flexThirdStyle.image}
+                                    imageStyle={{ borderRadius: 20 }}
+                                    source={calça}
+                                />
+                            </View>
                         </View>
 
-                    </View>
+                        <View style={flexFourthStyle.flexFourth}>
+                            <View style={flexFourthStyle.flexRow}>
 
-                    <View style={styles.flexSecond}><Text style={{ color: "#F2F2F2" }}>Dia nublado, que tal ser um ponto de cor? </Text></View>
-
-                    <View style={flexThirdStyle.flexThird}>
-                        <View style={flexThirdStyle.containerImages}>
-                            <ImageBackground style={flexThirdStyle.image}
-                                imageStyle={{ borderRadius: 20 }}
-                                source={camisas}
-                            />
-                        </View>
-                        <View style={flexThirdStyle.containerImages}>
-                            <ImageBackground style={flexThirdStyle.image}
-                                imageStyle={{ borderRadius: 20 }}
-                                source={calça}
-                            />
-                        </View>
-                    </View>
-
-                    <View style={flexFourthStyle.flexFourth}>
-                        <View style={flexFourthStyle.flexRow}>
-
-                            <TouchableHighlight onPress={() => this.props.navigation.navigate('Looks')}>
-                                <View style={flexFourthStyle.flexElements}>
-                                    <View style={flexFourthStyle.flexIcon}>
-                                        <Look width={90} height={90} />
+                                <TouchableHighlight onPress={() => this.props.navigation.navigate('Looks')}>
+                                    <View style={flexFourthStyle.flexElements}>
+                                        <View style={flexFourthStyle.flexIcon}>
+                                            <Look width={90} height={90} />
+                                        </View>
+                                        <Text style={flexFourthStyle.flexText} >looks</Text>
                                     </View>
-                                    <Text style={flexFourthStyle.flexText} >looks</Text>
-                                </View>
-                            </TouchableHighlight>
+                                </TouchableHighlight>
 
-                            <TouchableHighlight onPress={() => this.props.navigation.navigate('ComporLook')}>
-                                <View style={flexFourthStyle.flexElements}>
-                                    <View style={flexFourthStyle.flexIcon}>
-                                        <ComporLook width={90} height={90} />
+                                <TouchableHighlight onPress={() => this.props.navigation.navigate('ComporLook')}>
+                                    <View style={flexFourthStyle.flexElements}>
+                                        <View style={flexFourthStyle.flexIcon}>
+                                            <ComporLook width={90} height={90} />
+                                        </View>
+                                        <Text style={flexFourthStyle.flexText} >compor looks</Text>
                                     </View>
-                                    <Text style={flexFourthStyle.flexText} >compor looks</Text>
-                                </View>
-                            </TouchableHighlight>
+                                </TouchableHighlight>
 
-                        </View>
+                            </View>
 
-                        <View style={flexFourthStyle.flexRow}>
-                            <TouchableHighlight onPress={() => this.props.navigation.navigate('MainMenu')}>
-                                <View style={flexFourthStyle.flexElements}>
-                                    <View style={flexFourthStyle.flexIcon}>
-                                        <View style={flexFourthStyle.tradeIconContainer}>
-                                            <View style={flexFourthStyle.tradeIcon}>
-                                                <EspacoTroca width={50} height={50} />
+                            <View style={flexFourthStyle.flexRow}>
+                                <TouchableHighlight onPress={() => this.props.navigation.navigate('MainMenu')}>
+                                    <View style={flexFourthStyle.flexElements}>
+                                        <View style={flexFourthStyle.flexIcon}>
+                                            <View style={flexFourthStyle.tradeIconContainer}>
+                                                <View style={flexFourthStyle.tradeIcon}>
+                                                    <EspacoTroca width={50} height={50} />
+                                                </View>
                                             </View>
                                         </View>
+                                        <Text style={flexFourthStyle.flexText} >espaço troca</Text>
                                     </View>
-                                    <Text style={flexFourthStyle.flexText} >espaço troca</Text>
-                                </View>
-                            </TouchableHighlight>
+                                </TouchableHighlight>
 
-                            <TouchableHighlight onPress={() => this.props.navigation.navigate('Calendar')}>
-                                <View style={flexFourthStyle.flexElements}>
-                                    <View style={flexFourthStyle.flexIcon}>
-                                        <Calendario width={90} height={90} />
+                                <TouchableHighlight onPress={() => this.props.navigation.navigate('Calendar')}>
+                                    <View style={flexFourthStyle.flexElements}>
+                                        <View style={flexFourthStyle.flexIcon}>
+                                            <Calendario width={90} height={90} />
+                                        </View>
+                                        <Text style={flexFourthStyle.flexText} >calendário</Text>
                                     </View>
-                                    <Text style={flexFourthStyle.flexText} >calendário</Text>
-                                </View>
-                            </TouchableHighlight>
+                                </TouchableHighlight>
 
+                            </View>
                         </View>
-                    </View>
-                </View>
-            </ScrollView>
+                    </View >
+                </ScrollView>
+            </View>
+
+
         )
     }
 }
@@ -140,7 +143,6 @@ const styles = StyleSheet.create({
     flexContainer: {
         display: "flex",
         flexDirection: "column",
-        height: 600
     },
 
     flexSecond: {
@@ -211,7 +213,7 @@ const flexStartStyle = StyleSheet.create({
 const flexThirdStyle = StyleSheet.create({
     flexThird: {
         backgroundColor: "#ffffff",
-        height: "30%",
+        height: 200,
         display: "flex",
         flexDirection: "row",
         padding: 10
