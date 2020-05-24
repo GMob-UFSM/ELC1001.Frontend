@@ -38,7 +38,7 @@ export default class MainMenu extends Component {
 
     render() {
         return (
-            <ScrollView>
+            <ScrollView contentContainerStyle={{ flex: 1 }}>
                 <View style={{ ...styles.flexContainer, height: this.state.heigth }}>
                     <View style={flexStartStyle.flexStart}>
 
