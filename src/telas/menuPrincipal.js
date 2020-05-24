@@ -24,13 +24,11 @@ export default class MainMenu extends Component {
     }
 
     async UNSAFE_componentWillMount() {
+        const token = await AsyncStorage.getItem('@Baloo:token');
+        console.log("TOKEN MAIN MENU: " + token)
 
-        console.log()
-        // const token = await AsyncStorage.getItem('@Baloo:token');
-        // console.log("TOKEN MAIN MENU: " + token)
-
-        // if (token === null) 
-        // this.props.navigation.navigate('Login')
+        if (token === null)
+            this.props.navigation.navigate('Login')
 
     }
 
