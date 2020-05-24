@@ -11,9 +11,8 @@ import ComporLook from '../assets/icons/comporlook.svg';
 import Calendario from '../assets/icons/calendario.svg';
 import EspacoTroca from '../assets/icons/espacotroca.svg';
 
-import looks from '../assets/images/looks.jpeg'
-import calendar from '../assets/images/calendar.jpeg'
-import comporlook from '../assets/images/comporlook.jpeg'
+import camisas from '../assets/images/camisas.png'
+import calça from '../assets/images/calça.png'
 
 export default class MainMenu extends Component {
 
@@ -57,11 +56,18 @@ export default class MainMenu extends Component {
 
                 <View style={styles.flexSecond}><Text style={{ color: "#F2F2F2" }}>Dia nublado, que tal ser um ponto de cor? </Text></View>
 
-                <View style={styles.flexThird}>
-                    <View style={styles.containerImages}>
+                <View style={flexThirdStyle.flexThird}>
+                    <View style={flexThirdStyle.containerImages}>
+                        <ImageBackground style={flexThirdStyle.image}
+                        imageStyle={{ borderRadius: 20 }}
+                        source={camisas}
+                        />
                     </View>
-                    <View style={styles.containerImages}>
-
+                    <View style={flexThirdStyle.containerImages}>
+                        <ImageBackground style={flexThirdStyle.image}
+                        imageStyle={{ borderRadius: 20 }}
+                        source={calça}
+                        />
                     </View>
                 </View>
 
@@ -119,47 +125,6 @@ export default class MainMenu extends Component {
 }
 
 const styles = StyleSheet.create({
-//    button: {
-//        flexDirection: 'row',
-//        justifyContent: 'space-between',
-//        alignItems: "center",
-//        margin: 3,
-//        width: 390,
-//        height: 180,
-//        backgroundColor: "#FFF",
-//        borderRadius: 20
-//    },
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#C4D0D0",
-    },
-    button1: {
-        borderRadius: 20,
-        flex: 1,
-        width: 390,
-        margin: 3,
-        justifyContent: "center"
-    },
-    textContainer: {
-        borderRadius: 16,
-        backgroundColor: "#FFF",
-        borderWidth: 3,
-        borderColor: "#4E3D42",
-        width: "45%",
-        height: 55,
-        alignSelf: "center",
-        justifyContent: "center"
-    },
-    text: {
-        fontSize: 20,
-        color: "#4E3D42",
-        alignSelf: "center",
-        margin: 3,
-        fontFamily: "Rubik",
-    },
     flexContainer: {
         display: "flex",
         flexDirection: "column",
@@ -169,24 +134,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#d09f9b",
         alignItems: "center"
     },
-    flexThird: {
-        backgroundColor: "#ffffff",
-        height: "30%",
-        display: "flex",
-        flexDirection: "row",
-        padding: 10
-    },
-    containerImages: {
-        marginRight: 5,
-        marginLeft: 5,
-        width: "47.5%",
-        height: "100%",
-        backgroundColor: "#fff",
-        borderColor: "#808080",
-        borderWidth: 1,
-        borderRadius: 10
-    },
-
 })
 
 
@@ -242,6 +189,30 @@ const flexStartStyle = StyleSheet.create({
     textTomorrowElement: {
         fontSize: 18,
         color: "#E7A399"
+    }
+})
+
+const flexThirdStyle = StyleSheet.create({
+    flexThird: {
+        backgroundColor: "#ffffff",
+        height: "30%",
+        display: "flex",
+        flexDirection: "row",
+        padding: 10
+    },
+    containerImages: {
+        marginRight: 5,
+        marginLeft: 5,
+        width: "47.5%",
+        height: "100%",
+        backgroundColor: "#fff",
+        borderColor: "#808080",
+        borderWidth: 2,
+        borderRadius: 22
+    },
+    image: {
+        width: "100%",
+        height: "100%",
     }
 })
 
