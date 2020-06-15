@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image } from 'react-native'
+import AsyncStorage  from '@react-native-community/async-storage';
 import LinearGradient from 'react-native-linear-gradient'
 import ImagePicker from 'react-native-image-picker';
 
@@ -190,7 +191,7 @@ export default class Perfil extends Component {
                     <View style={styles.container}>
                         <View style={styles.header}>
                             <Image style={styles.image} source={{uri: 'data:image/jpeg;base64,' + this.state.image}}/>
-                            <Text style={styles.nome}>{this.state.name}</Text>
+                            <Text style={styles.nome}>{`${this.state.name.first} ${this.state.name.last}`}</Text>
                             <Text style={styles.localizacao}>{this.state.localization}</Text>
                         </View>
                         <LinearGradient style={styles.body} colors={['#CEBBBA', '#CFDBDB']} locations={[0,.7]}>
