@@ -30,7 +30,7 @@ export default class SignIn extends Component {
             });
 
             await AsyncStorage.setItem('@Baloo:token', response.data.token);
-
+            api.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
             
             this.props.navigation.navigate('MainMenu')
           } catch (_err) {
