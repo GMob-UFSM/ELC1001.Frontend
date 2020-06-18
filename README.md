@@ -1,6 +1,6 @@
 ### INSTRUÇÕES WEATHER API
 - Acesse https://openweathermap.org/api, crie uma conta e gere uma API_KEY para usar no aplicativo. 
-- Atribua o token na constante WEATHER_API_TOKEN no arquivo [weatherAPI.js](https://github.com/ggpereira/ELC1001.Frontend/blob/master/src/services/weatherApi.js)
+- Atribua o token na constante WEATHER_API_TOKEN no arquivo [weatherApi.js](https://github.com/ggpereira/ELC1001.Frontend/blob/master/src/services/weatherApi.js)
 - Mais detalhes sobre a API em https://openweathermap.org/guide
 
 #### Observações gerais
