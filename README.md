@@ -2,6 +2,7 @@
 - Acesse https://openweathermap.org/api, crie uma conta e gere uma API_KEY para usar no aplicativo. 
 - Atribua o token na constante WEATHER_API_TOKEN no arquivo [weatherApi.js](https://github.com/ggpereira/ELC1001.Frontend/blob/master/src/services/weatherApi.js)
 - Mais detalhes sobre a API em https://openweathermap.org/guide
+- Para funcionar você deve habilitar o serviço de localização do celular
 
 #### Observações gerais
 
