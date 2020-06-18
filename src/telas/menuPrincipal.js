@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, ImageBackground, TouchableOpacity, Text, TouchableHighlight, ScrollView, Dimensions } from 'react-native'
+import { View, StyleSheet, ImageBackground, TouchableOpacity, Text, TouchableHighlight, ScrollView, Dimensions, Alert, TouchableOpacityBase } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
+import Geolocation from '@react-native-community/geolocation';
 
 /* Icons */
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faCloud, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { faCloud, faAngleRight, faCloudSun } from '@fortawesome/free-solid-svg-icons';
 import Look from '../assets/icons/looks.svg';
 import ComporLook from '../assets/icons/comporlook.svg';
 import Calendario from '../assets/icons/calendario.svg';
@@ -14,13 +15,56 @@ import EspacoTroca from '../assets/icons/espacotroca.svg';
 import camisas from '../assets/images/camisas.png'
 import calça from '../assets/images/calça.png'
 
+/* Weather API */
+import weatherApi from '../services/weatherApi';
+
+
 export default class MainMenu extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            height: Dimensions.get('window').height
+            height: Dimensions.get('window').height,
+            temp: '...',
+            temp_max: '...',
+            weather_id: null,
+            description: '...'
         }
+    }
+
+    componentDidMount() {
+        Geolocation.getCurrentPosition(
+            async position => {
+                const { longitude, latitude } = position.coords;
+
+                location = { longitude, latitude }
+
+
+                const response = await weatherApi.api.get('/weather', {
+                    params: {
+                        lat: latitude,
+                        lon: longitude,
+                        appid: weatherApi.token,
+                        lang: 'pt_br',
+                        units: 'metric'
+                    }
+                }).catch(err => {
+                    this.setState({ temp: 'unknown' });
+                    this.setState({ temp_max: 'unknown' });
+                    this.setState({ description: 'unknown' });
+                });
+
+                const { temp, temp_max } = response.data.main;
+                const { description, id } = response.data.weather[0];
+
+                this.setState({ description });
+                this.setState({ weather_id: id });
+                this.setState({ temp: Math.round(temp) });
+                this.setState({ temp_max: Math.round(temp_max) });
+
+            },
+            err => Alert.alert('Error', err)
+        )
     }
 
     async UNSAFE_componentWillMount() {
@@ -33,6 +77,7 @@ export default class MainMenu extends Component {
     }
 
     render() {
+        let weather = this.state.weather_id
         return (
             <View style={{ flexGrow: 1 }}>
                 <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -44,26 +89,40 @@ export default class MainMenu extends Component {
                                 <Text style={flexStartStyle.textTodayElement} > HOJE </Text>
 
                                 <View style={flexStartStyle.temperatureInfo}>
-                                    <Text style={flexStartStyle.temperatureTextInfo1}>10&deg;</Text>
+                                    <Text style={flexStartStyle.temperatureTextInfo1}>{this.state.temp}&deg;</Text>
                                     <Text style={flexStartStyle.temperatureTextInfo2}> temperatura </Text>
-                                    <Text style={flexStartStyle.temperatureTextInfo3}>máx. 18&deg;</Text>
+                                    <Text style={flexStartStyle.temperatureTextInfo3}>máx. {this.state.temp_max}&deg;</Text>
                                 </View>
 
 
                                 <View style={flexStartStyle.iconCloud}>
-                                    <FontAwesomeIcon icon={faCloud} size={50} color={"#1B807E"} />
+                                    {/* Rain */}
+                                    {(weather >= 200 && weather <= 232 && weather >= 500 && weather <= 531) ?
+                                        <FontAwesomeIcon icon={faCloudRain} size={50} color={"#1B807E"} /> :
+                                        /* sun */
+                                        (weather === 800) ?
+                                            <FontAwesomeIcon icon={faCloudSun} size={50} color={"#1B807E"} /> :
+                                            /* drizzle */
+                                            (weather >= 300 && weather <= 321) ?
+                                                <FontAwesomeIcon icon={faCloudRain} size={50} color={"#1B807E"} /> :
+                                                /* cloudy */
+                                                (weather >= 801 && weather <= 804) ?
+                                                    <FontAwesomeIcon icon={faCloud} size={50} color={"#1B807E"} /> : null
+                                    }
+
                                 </View>
 
                             </View>
 
                             <View style={flexStartStyle.tomorrowInfo}>
                                 <Text style={flexStartStyle.textTomorrowElement}> AMANHÃ </Text>
+
                                 <FontAwesomeIcon icon={faAngleRight} color={"#E7A399"} size={50} />
                             </View>
 
                         </View>
 
-                        <View style={styles.flexSecond}><Text style={{ color: "#F2F2F2" }}>Dia nublado, que tal ser um ponto de cor? </Text></View>
+                        <View style={styles.flexSecond}><Text style={{ color: "#F2F2F2" }}>{`${this.state.description}, que tal ser um ponto de cor?`}</Text></View>
 
                         <View style={flexThirdStyle.flexThird}>
                             <View style={flexThirdStyle.containerImages}>
@@ -128,7 +187,7 @@ export default class MainMenu extends Component {
 
                             </View>
                         </View>
-                    </View >
+                    </View>
                 </ScrollView>
             </View>
 
