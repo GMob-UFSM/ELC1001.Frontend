@@ -273,11 +273,10 @@ const flexThirdStyle = StyleSheet.create({
         height: 200,
         display: "flex",
         flexDirection: "row",
+        justifyContent: "space-around",
         padding: 10
     },
     containerImages: {
-        marginRight: 5,
-        marginLeft: 5,
         width: "47.5%",
         height: "100%",
         backgroundColor: "#fff",
@@ -305,7 +304,9 @@ const flexFourthStyle = StyleSheet.create({
     flexElements: {
         display: "flex",
         flexDirection: "column",
-        margin: 15,
+        marginLeft: 15,
+        marginRight: 15,
+        marginTop: "5%",
         width: 110,
         height: 110,
     },
