@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, FlatList, Image, TouchableHighlight, ActivityIndicator } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage'
+import LinearGradient from 'react-native-linear-gradient'
 
 import api from '../../services/api'
 import Add from '../../assets/icons/botaoadd.svg' 
@@ -47,7 +48,7 @@ export default class Camisas extends Component {
             this.setState({ loading: true });
 
             const response = await api.get(`/api/v1/garment?skip=${pageNumber*20}&limit=20`, { 'headers': { 'Authorization': this.state.token } });
-
+                                            // /api/v1/wardrobe/:wardrobeId
             console.log("RESPONDE.DATA: " + response)
             const data = await response.data.data;
 
@@ -84,18 +85,26 @@ export default class Camisas extends Component {
         this.setState({ refresh: false })
     }
 
+    //Criar uma função 'peça', chamada ao selecionar uma peça especifica, que redicionará o usúario para a tela publicar e direcionar os dados da peça em questão para essa tela
+    peça(item) {
+
+        console.log("_id "+ item._id);
+        AsyncStorage.setItem("@Baloo:garmentID", item._id);
+        this.props.navigation.navigate('Publicar');
+    }
+
     render() {
         console.log("GARMENT: " + this.state.garment)
         console.log(this.state.garment.length)
         console.log("TOTAL" + this.state.total)
         return ( 
             <View style={styles.container}>
-                <View style={{flex: 9, backgroundColor: "#C4D0D0"}} >
+                <LinearGradient style={{flex: 9}} colors={['#CEBBBA', '#CFDBDB']} locations={[0,.7]}>
                 <FlatList
                 contentContainerStyle={{paddingLeft: 5, paddingTop: 10}}
                 numColumns={2} 
                 data={this.state.garment}
-                onEndReached={() => {if(!this.onEndReachedCalledDuringMomentum){
+                onEndReached={() => {if(!this.onEndReachedCalledDuringMomentum && this.state.total !== 0){
                     this.loadPage();                    
                     this.onEndReachedCalledDuringMomentum = true;
                     console.log("ONENDREACHED: " + this.state.page);
@@ -108,7 +117,7 @@ export default class Camisas extends Component {
                 keyExtractor={post => String(post.id)}
                 renderItem={({ item }) => (
                      <View>  
-                         <TouchableHighlight style={styles.garmentBox} onPress={() => this.props.navigation.navigate('Display')}>
+                         <TouchableHighlight style={styles.garmentBox} onPress={() => this.peça(item)}> 
                             <Image style={{width: 170, height: 180, alignSelf: "center", margin: 10}} source={{uri: item.default_image}} />
                         </TouchableHighlight>          
                     </View>
@@ -120,7 +129,7 @@ export default class Camisas extends Component {
                         <Add width={60} height={60} />
                     </TouchableHighlight>
                 </View>
-                </View>
+                </LinearGradient>
             </View>
         )
     }

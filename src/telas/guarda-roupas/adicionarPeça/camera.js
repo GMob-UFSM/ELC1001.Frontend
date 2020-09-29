@@ -124,7 +124,6 @@ export default class Camera extends Component {
           ? <TouchableHighlight onPress={() => this.setState({ pic: false }, this.camera.resumePreview())} style={styles.cancelPic}>
               <Text style={{fontSize: 20, fontWeight: "bold", color: "black", alignSelf: "center"}}>X</Text>
             </TouchableHighlight>
-
           : <TouchableHighlight onPress={this.takePicture} style={styles.takePic}>
               <Capture height={35} width={35} alignSelf={"center"}/>
           </TouchableHighlight>

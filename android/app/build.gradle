@@ -150,6 +150,13 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            storeFile file('victor_curi.keystore')
+            storePassword 'colorado1909'
+            keyAlias 'vCuri'
+            keyPassword 'colorado1909'
+        }
+
     }
     buildTypes {
         debug {

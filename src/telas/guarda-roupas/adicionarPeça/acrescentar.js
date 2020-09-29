@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, TextInput, Image, Picker, StyleSheet, TouchableHighlight, TouchableOpacity } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
+import LinearGradient from 'react-native-linear-gradient'
 
 import okbutton from '../../../assets/buttons/okbutton.png'
 
@@ -28,47 +29,44 @@ export default class Acrescentar extends Component {
         this.setState({ descriçao });
     };
 
+    refreshStates = () => {
+        this.setState({  
+            body_part: '',
+            model: '',
+            manufactor: '',
+            default_image: ''
+        });
+    } 
+
     RegisterGarment = async() => {
         try{
 
             const uri = await AsyncStorage.getItem('@Baloo:uri');
             console.log(uri);
 
-            const token = await AsyncStorage.getItem('@Baloo:token');
-            const AuthStr = 'Bearer '.concat(token); 
-            console.log(token)
-
-            const params = new URLSearchParams();
-            params.append('body_part', this.state.peça);
-            params.append('model', this.state.modelo);
-            params.append('manufactor', this.state.marca);
-            params.append('description', this.state.descriçao);
-            params.append('image_urls', uri);
-
-            console.log("params: " + params);
-
-            let data = JSON.stringify({
+            const response = await api.post('/api/v1/garment/create', {
                 body_part: this.state.peça,
                 model: this.state.modelo,
                 manufactor: this.state.marca,
-                description: this.state.descriçao,
-                image_urls: uri
-            })// Delete data and use params
-
-            await api.post('/api/v1/garment/create', data,
-            { 'headers': { 'Authorization': AuthStr } });
-
-            console.log("DATA: "+ data)
-
-            this.props.navigation.navigate('Publicar');
+                default_image: uri
+              });
+    
+            if (response.status == 201){
+                AsyncStorage.setItem("@Baloo:garmentID", response.data._id);
+                this.props.navigation.navigate('Publicar');
+            }
+            
+            this.refreshStates();
 
         }catch(err){
             console.log("catch: " + err);
+            this.refreshStates();
         }
     }
 
     CancelOperation = async() => {
 
+        this.refreshStates();
         AsyncStorage.removeItem("@Baloo:uri")
         this.props.navigation.navigate('Camera')
     }
@@ -76,6 +74,7 @@ export default class Acrescentar extends Component {
     render() {
         return(
             <View style={styles.container}>
+                <LinearGradient style={{flex: 1, paddingTop: 30}} colors={['#CEBBBA', '#CFDBDB']} locations={[0,.7]}>
                 <View style={styles.boxContainer}>
                     <Text style={styles.text}>Peça</Text>
                     <View style={styles.textInput}>
@@ -129,6 +128,7 @@ export default class Acrescentar extends Component {
                         <Image source={okbutton} style={{height: 53, width: 53}} />
                     </TouchableHighlight>
                 </View>
+                </LinearGradient>
             </View>
         )
     }
@@ -139,7 +139,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#C4D0D0",
-        paddingTop: 30
     },
     boxContainer: {
         width: "65%", 

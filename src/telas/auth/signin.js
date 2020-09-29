@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, TextInput, Text, StyleSheet, TouchableOpacity, StatusBar } from 'react-native'
-import AsyncStorage  from '@react-native-community/async-storage';
+import AsyncStorage  from '@react-native-community/async-storage'
+import LinearGradient from 'react-native-linear-gradient'
 
 import api from '../../services/api'
 
@@ -40,15 +41,9 @@ export default class SignIn extends Component {
         }
       };
 
-      componentWillMount() {
-          this.forceUpdate();
-      }
-
     render () {
         return(
-            <View style={styles.container}>
-                <StatusBar hidden />
-                <View style={styles.postContainer}>
+                <LinearGradient style={styles.postContainer} colors={['#CEBBBA', '#CFDBDB']} locations={[0,.7]}>
                     <Text style={styles.text}>Digite seu email</Text>
                     <TextInput style={styles.textInput}
                     value={this.state.email}
@@ -62,45 +57,39 @@ export default class SignIn extends Component {
                     onChangeText={this.handlePasswordChange}
                     autoCapitalize="none"
                     autoCorrect={false}/>
-                    
-                    <View style={{alignContent: "center", justifyContent: "center", flexDirection: "row"}}>
-                    <TouchableOpacity style={{margin: 10, marginTop: 50, alignSelf: "center"}} onPress={() => this.props.navigation.navigate('Login')}>
-                        <Text style={{fontSize: 18, color: "#4E3D42", alignSelf: "center"}}>cencelar</Text>
-                    </TouchableOpacity>
                     {this.state.error.length !== 0 && <Text style={styles.errorMessage}>{this.state.error}</Text>}
-                    <TouchableOpacity style={{margin: 10, marginTop: 50}} onPress={this.handleSignInPress}>
-                        <Text style={{fontSize: 25, color: "#4E3D42", alignSelf: "center"}}>entrar</Text>
-                    </TouchableOpacity>
+                    <View style={{alignContent: "center", justifyContent: "center", flexDirection: "row"}}>
+                        <TouchableOpacity style={{margin: 10, marginTop: 50, alignSelf: "center"}} onPress={() => this.props.navigation.navigate('Login')}>
+                            <Text style={{fontSize: 18, color: "#4E3D42", alignSelf: "center"}}>cencelar</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{margin: 10, marginTop: 50}} onPress={this.handleSignInPress}>
+                            <Text style={{fontSize: 25, color: "#4E3D42", alignSelf: "center"}}>entrar</Text>
+                        </TouchableOpacity>
                     </View>
-                </View>
-            </View>
+                </LinearGradient>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: '#C4D0D0',
-    }, 
     postContainer: {
         flex: 1,
         justifyContent: "center",
-        marginBottom: 100,
+        alignContent: "center",
         flexDirection: 'column'
     },
     text: {
         fontSize: 20,
         color: "#4E3D42",
-        alignSelf: "flex-start",
+        alignSelf: "center",
         margin: 30,
         marginTop: 80
     },
     textInput: {
         borderRadius: 20,
         backgroundColor: "#FFF",
+        width: '65%',
+        alignSelf: "center"
 
     },
     errorMessage: {
@@ -109,6 +98,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginBottom: 15,
         marginHorizontal: 20,
+        marginTop: 5
     }
 }) 
 

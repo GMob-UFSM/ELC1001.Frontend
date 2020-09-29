@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { View, TextInput, Text, StyleSheet, TouchableOpacity, TouchableHighlight, Image, StatusBar, ScrollView } from 'react-native'
+import LinearGradient from 'react-native-linear-gradient'
 
 import api from '../../services/api'
 
@@ -71,8 +72,7 @@ export default class SignUp extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <StatusBar hidden /> 
+            <LinearGradient style={styles.container} colors={['#CEBBBA', '#CFDBDB']} locations={[0,.7]}>
                 <ScrollView>
                 {this.state.success.length !== 0 && <Text style={styles.sucessMessage}>{this.state.success}</Text>}
                 <View style={styles.postContainer}>
@@ -124,7 +124,7 @@ export default class SignUp extends Component {
                     </View>
                 </View>
                 </ScrollView>
-            </View>
+                </LinearGradient>
         )
     }
 }

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { View, Text, Image, TouchableHighlight, TouchableOpacity, StyleSheet } from 'react-native'
 import base64 from 'react-native-base64'
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage'
+import LinearGradient from 'react-native-linear-gradient'
 
 import Compartilhar from '../../../assets/icons/botao_compartilhar.svg'
 import Facebook from '../../../assets/icons/botão_facebook.svg'
@@ -11,32 +12,64 @@ import ComporLook from '../../../assets/icons/comporlook.svg'
 import Guardar from '../../../assets/icons/looks.svg'
 import noimage from '../../../assets/images/noimage.png'
 
+import api from '../../../services/api'
+
 export default class Publicar extends Component {
     state = {
         picture: '',
+        id: ''
     }
 
     getPicture = async () => {
-        const uri = await AsyncStorage.getItem('@Baloo:uri');
-        const image = base64.decode(uri)
-        AsyncStorage.removeItem('@Baloo:uri');
-        
+
         this.setState({
-            picture: image
+            id: await AsyncStorage.getItem("@Baloo:garmentID")
+        });
+
+        AsyncStorage.removeItem("@Baloo:garmentID");
+
+        const response = await api.get(`/api/v1/garment/${this.state.id}`);
+        const garment = await response.data;
+
+        console.log('IMAGE DEFAULT: ' + garment.default_image);
+
+        this.setState({
+            picture: garment.default_image
         })
     }
  
-    componentDidMount(){
-        this.getPicture();
+    async componentDidMount(){
+
+        const { navigation } = this.props;
+        this.focusListener = navigation.addListener("willFocus", () => {
+            // The screen is focused
+            // Call any action
+            this.getPicture();
+        });
+
+    }
+
+    componentWillUnmount() {
+
+        this.focusListener.remove();
+    }
+
+    navigateToComporLook (){
+
+        AsyncStorage.setItem("@Baloo:garmentID", this.state.id);
+        this.props.navigation.navigate('ComporLook');
+
+        
     }
 
     render() {
         const image = this.state.picture;
         return (
             <View style={styles.container}>
+                <LinearGradient style={{flex: 1}} colors={['#CEBBBA', '#CFDBDB']} locations={[0,.7]}>
                 <View style={styles.imageContainer}>
                     <Image source={image ? {uri: image} : noimage} style={styles.picture}/> 
-                    <TouchableHighlight style={styles.shareButton}>
+                    <TouchableHighlight style={styles.shareButton} onPress={() => this.getPicture()}>
                         <Compartilhar width={76} height={76} marginTop={-15} alignSelf={'center'}/>
                     </TouchableHighlight>
                     <Text style={{fontSize: 15, alignSelf: "center", paddingTop: 3, color: "#4E3D42"}}>compartilhe no baloo</Text>
@@ -65,12 +98,13 @@ export default class Publicar extends Component {
                         <Text style={styles.text}>guardar</Text>
                     </View>
                     <View style={styles.touchableContainer}>
-                        <TouchableHighlight style={styles.touchable}>
+                        <TouchableHighlight style={styles.touchable} onPress={() => this.navigateToComporLook()}>
                             <ComporLook alignSelf={'center'} width={76} height={76}/>
                         </TouchableHighlight>
                         <Text style={styles.text}>compor look</Text>
                     </View>
                 </View>
+                </LinearGradient>
             </View>
         )
     }
@@ -93,7 +127,7 @@ const styles = StyleSheet.create ({
         borderRadius: 20,
         alignSelf: "center",
         backgroundColor: "white",
-        marginTop: 15
+        marginTop: 15,
     },
     shareButton: {
         height: 50,

@@ -6,15 +6,20 @@ import looks from '../assets/images/looks.jpeg'
 import calendar from '../assets/images/calendar.jpeg' 
 import comporlook from '../assets/images/comporlook.jpeg'
 
+import api from '../services/api'
+
 export default class MainMenu extends Component {
 
     async UNSAFE_componentWillMount(){
         
         const token = await AsyncStorage.getItem('@Baloo:token');
         console.log("TOKEN MAIN MENU: " + token)
-    
+   
         if (token === null) 
-        this.props.navigation.navigate('Login')
+            this.props.navigation.navigate('Login');
+        else
+            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
 
     }
 
