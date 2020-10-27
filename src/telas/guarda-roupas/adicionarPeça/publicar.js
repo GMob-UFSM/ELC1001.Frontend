@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Image, TouchableHighlight, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, Image, TouchableHighlight, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native'
 import base64 from 'react-native-base64'
 import AsyncStorage from '@react-native-community/async-storage'
 import LinearGradient from 'react-native-linear-gradient'
@@ -17,7 +17,8 @@ import api from '../../../services/api'
 export default class Publicar extends Component {
     state = {
         picture: '',
-        id: ''
+        id: '',
+        loading: true
     }
 
     getPicture = async () => {
@@ -34,7 +35,8 @@ export default class Publicar extends Component {
         console.log('IMAGE DEFAULT: ' + garment.default_image);
 
         this.setState({
-            picture: garment.default_image
+            picture: garment.default_image,
+            loading: false
         })
     }
  
@@ -44,6 +46,7 @@ export default class Publicar extends Component {
         this.focusListener = navigation.addListener("willFocus", () => {
             // The screen is focused
             // Call any action
+            this.setState({ loading: true });
             this.getPicture();
         });
 
@@ -68,7 +71,10 @@ export default class Publicar extends Component {
             <View style={styles.container}>
                 <LinearGradient style={{flex: 1}} colors={['#CEBBBA', '#CFDBDB']} locations={[0,.7]}>
                 <View style={styles.imageContainer}>
-                    <Image source={image ? {uri: image} : noimage} style={styles.picture}/> 
+                    {this.state.loading
+                    ? <ActivityIndicator ActivityIndicator size={"large"} color={"#999"} style={styles.picture}  />
+                    :<Image source={image ? {uri: image} : noimage} style={styles.picture}/>      
+                    }
                     <TouchableHighlight style={styles.shareButton} onPress={() => this.getPicture()}>
                         <Compartilhar width={76} height={76} marginTop={-15} alignSelf={'center'}/>
                     </TouchableHighlight>

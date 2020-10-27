@@ -75,7 +75,7 @@ export default class Calendar extends Component {
           this.setState({ showAddLook: true });
           this.setState({ showButtonOpt: false });
           this.setState({ showMsgAddLook: false });
-          this.setState({ turno: turno});
+          //this.setState({ turno: turno});
           this.setState({ selDate: new Date(this.state.dataAtual) });
         }
     };
@@ -241,32 +241,34 @@ export default class Calendar extends Component {
     }
 
     Prev = async () => {
+        console.log("PREV: " + this.state.turno);
         if(this.state.turno == ""){
-            await this.setState({ turno: "manhã" });
+            await this.setState({ turno: "manhã", loading: true });
         } else if (this.state.turno == "manhã"){
-            await this.setState({ turno: "noite" }); 
+            await this.setState({ turno: "noite", loading: true }); 
             var d = new Date(this.state.dataAtual);
             await this.setState({ dataAtual: new Date(
                 d.getFullYear(),
                 d.getMonth(),
                 d.getDate() - 1)});
         } else if (this.state.turno == "tarde"){
-            await this.setState({ turno: "manhã" });
+            await this.setState({ turno: "manhã", loading: true });
         } else {
-            await this.setState({ turno: "tarde" });
+            await this.setState({ turno: "tarde", loading: true });
         }
         this.hasLook();
     };
 
     Next = async () => {
+        console.log("NEXT: " + this.state.turno);
         if(this.state.turno == ""){
-            await this.setState({ turno: "manhã" });
+            await this.setState({ turno: "manhã", loading: true });
         } else if (this.state.turno == "manhã"){
-            await this.setState({ turno: "tarde" });
+            await this.setState({ turno: "tarde", loading: true });
         } else if (this.state.turno == "tarde"){
-            await this.setState({ turno: "noite" });
+            await this.setState({ turno: "noite", loading: true });
         } else {
-            await this.setState({ turno: "manhã" });
+            await this.setState({ turno: "manhã", loading: true });
             var d = new Date(this.state.dataAtual);
             await this.setState({ dataAtual: new Date(
                 d.getFullYear(),
@@ -286,8 +288,6 @@ export default class Calendar extends Component {
    
 
     render() {
-        var look = this.state.look;
-        console.log(look.leg_image);
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
@@ -327,13 +327,13 @@ export default class Calendar extends Component {
                 {this.state.showAddLook ? ( 
                     <>
                         
-                        <View style={styles.viewAddLook}>
+                        <ScrollView style={styles.viewAddLook}>
                             {}
                             {this.state.loading 
 
                             ? 
                             <View>
-                                
+                                <ActivityIndicator ActivityIndicator size={"large"} color={"#999"} style={{ alignSelf: "center" }}  />
                             </View>
                             
                            : (this.state.look == "" ? ( 
@@ -347,39 +347,39 @@ export default class Calendar extends Component {
                                     <Text style={styles.textAddLook}>Acrescentar look</Text>
                                 </>
                             ) : 
-                                <>
-                                <ScrollView >
-                                    <View style={{ flexGrow: 1, backgroundColor:"#C4D0D0", flexDirection: "column" }}>
-                                        <View style={styles.postContainer}>
-                                            <View style={styles.lookContainer}>
-                                                <Image
-                                                style={styles.garment}
-                                                source={{uri:look.torso_image}}
-                                                />
-                                            </View>
-                                        </View>
-                                        <View style={styles.postContainer}>
-                                            <View style={styles.lookContainer}>
-                                                <Image
-                                                style={styles.garment}
-                                                source={{uri: look.leg_image}}
-                                                />
-                                            </View>
-                                        </View>
-                                        <View style={styles.postContainer}>
-                                            <View style={styles.lookContainer}>
-                                                <Image
-                                                style={styles.garment}
-                                                source={{uri: look.feet_image}}
-                                                />
-                                            </View>
+                            <>
+                            <ScrollView >
+                                <View style={{ flexGrow: 1, backgroundColor:"#C4D0D0", flexDirection: "column" }}>
+                                    <View style={styles.postContainer}>
+                                        <View style={styles.lookContainer}>
+                                            <Image
+                                            style={styles.garment}
+                                            source={{uri:this.state.look.torso_image}}
+                                            />
                                         </View>
                                     </View>
-                                </ScrollView> 
-                                </>
+                                    <View style={styles.postContainer}>
+                                        <View style={styles.lookContainer}>
+                                            <Image
+                                            style={styles.garment}
+                                            source={{uri: this.state.look.leg_image}}
+                                            />
+                                        </View>
+                                    </View>
+                                    <View style={styles.postContainer}>
+                                        <View style={styles.lookContainer}>
+                                            <Image
+                                            style={styles.garment}
+                                            source={{uri: this.state.look.feet_image}}
+                                            />
+                                        </View>
+                                    </View>
+                                </View>
+                            </ScrollView> 
+                            </>
                             )
                         }
-                        </View>
+                        </ScrollView>
                         <View style={styles.bottonAddLook}>
                             <TouchableOpacity  style={styles.buttonNext} onPress={this.Next}>
                                 <Icon name="chevron-right" size={50} color="#000000" />

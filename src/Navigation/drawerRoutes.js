@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { ScrollView, Text, View, TouchableHighlight, StyleSheet } from 'react-native'
 import { DrawerActions } from 'react-navigation'
 import AsyncStorage from '@react-native-community/async-storage';
+import 'react-native-gesture-handler'
 
 class DrawerScreen extends Component {
     

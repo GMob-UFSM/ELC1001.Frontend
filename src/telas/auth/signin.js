@@ -60,7 +60,7 @@ export default class SignIn extends Component {
                     {this.state.error.length !== 0 && <Text style={styles.errorMessage}>{this.state.error}</Text>}
                     <View style={{alignContent: "center", justifyContent: "center", flexDirection: "row"}}>
                         <TouchableOpacity style={{margin: 10, marginTop: 50, alignSelf: "center"}} onPress={() => this.props.navigation.navigate('Login')}>
-                            <Text style={{fontSize: 18, color: "#4E3D42", alignSelf: "center"}}>cencelar</Text>
+                            <Text style={{fontSize: 18, color: "#4E3D42", alignSelf: "center"}}>cancelar</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={{margin: 10, marginTop: 50}} onPress={this.handleSignInPress}>
                             <Text style={{fontSize: 25, color: "#4E3D42", alignSelf: "center"}}>entrar</Text>

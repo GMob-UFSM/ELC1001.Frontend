@@ -22,15 +22,6 @@ export default class Camisas extends Component {
 
     async componentDidMount() {
 
-        const asyncToken = await AsyncStorage.getItem('@Baloo:token');
-        console.log("COMPONETDIDMOUNT"); 
-
-        const AuthStr = 'Bearer '.concat(asyncToken);  
-
-        this.setState({
-            token: AuthStr
-        })
-
         this.loadPage() 
         
     }
@@ -47,7 +38,7 @@ export default class Camisas extends Component {
 
             this.setState({ loading: true });
 
-            const response = await api.get(`/api/v1/garment?skip=${pageNumber*20}&limit=20`, { 'headers': { 'Authorization': this.state.token } });
+            const response = await api.get(`/api/v1/garment?skip=${pageNumber*20}&limit=20`);
                                             // /api/v1/wardrobe/:wardrobeId
             console.log("RESPONDE.DATA: " + response)
             const data = await response.data.data;
@@ -123,7 +114,7 @@ export default class Camisas extends Component {
                     </View>
                 
                  )}
-                />      
+                />
                 <View style={styles.text}>
                     <TouchableHighlight onPress={() => this.props.navigation.navigate('Camera')} style={{alignSelf: "center"}}>
                         <Add width={60} height={60} />
@@ -154,4 +145,3 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
 })
-

@@ -4,6 +4,8 @@ import { RNCamera } from 'react-native-camera'
 import CameraRoll from '@react-native-community/cameraroll'
 import AsyncStorage from '@react-native-community/async-storage';
 
+import Icon from 'react-native-vector-icons/MaterialIcons'
+
 import base64 from 'react-native-base64'
 
 import Capture from '../../../assets/icons/Snap.svg'
@@ -16,7 +18,8 @@ export default class Camera extends Component {
     photos: [],
     index: null,
     pic: false,
-    cameraType: 'front'
+    cameraType: 'front',
+    clickable: false
   }
 
   setIndex = (index) => {
@@ -52,7 +55,10 @@ export default class Camera extends Component {
           AsyncStorage.setItem("@Baloo:uri", image);
           console.log("PICTURE URI: " + image);
 
-          this.setState({ pic: true });
+          this.setState({ 
+            pic: true, 
+            clickable: true
+          });
           this.camera.pausePreview();
 
 
@@ -100,6 +106,20 @@ export default class Camera extends Component {
       }
   }
 
+  componentDidMount = () => {
+
+    const { navigation } = this.props;
+    this.focusListener = navigation.addListener("didBlur", () => {
+      this.setState({ pic: false });
+
+      if(this.camera){
+        this.camera.resumePreview();
+      } 
+    });
+
+}
+
+
     render() {
       console.log("PIC: " + this.state.pic)
         return (
@@ -120,13 +140,16 @@ export default class Camera extends Component {
             buttonNegative: 'Cancel',
           }}
         >
-          {this.state.pic 
-          ? <TouchableHighlight onPress={() => this.setState({ pic: false }, this.camera.resumePreview())} style={styles.cancelPic}>
+          {this.state.pic ? (
+          <TouchableHighlight onPress={() => this.setState({ pic: false, clickable: false }, this.camera.resumePreview())} style={styles.cancelPic}>
               <Text style={{fontSize: 20, fontWeight: "bold", color: "black", alignSelf: "center"}}>X</Text>
-            </TouchableHighlight>
-          : <TouchableHighlight onPress={this.takePicture} style={styles.takePic}>
+          </TouchableHighlight>
+          )
+          : (
+          <TouchableHighlight onPress={this.takePicture} style={styles.takePic}>
               <Capture height={35} width={35} alignSelf={"center"}/>
           </TouchableHighlight>
+          )
           }
 
         </RNCamera>
@@ -138,8 +161,8 @@ export default class Camera extends Component {
             <TouchableHighlight style={{alignSelf: "center", margin: 10}} onPress={this.changeCameraType}>
               <Inverter height={70} width={70} alignSelf={"center"}/>
             </TouchableHighlight>
-            
-            {this.state.pic 
+
+            {this.state.clickable 
             ? <TouchableHighlight style={{alignSelf: "center", margin: 10}} onPress={() => this.props.navigation.navigate('Acrescentar')}>
                 <Image source={okButton} style={{height: 50, width: 50, alignSelf: "center"}} />
               </TouchableHighlight>
@@ -160,10 +183,6 @@ export default class Camera extends Component {
           onRequestClose={() => console.log('closed')}
         >
           <View style={styles.modalContainer}>
-            <Button
-              title='Close'
-              onPress={this.toggleModal}
-            />
             <ScrollView
               contentContainerStyle={styles.scrollView}>
               {
@@ -187,6 +206,9 @@ export default class Camera extends Component {
                 })
               }
             </ScrollView>
+            <TouchableOpacity  style={styles.buttonClose} onPress={() => this.toggleModal()}>
+                <Icon name="close" size={50} color="#000000" />
+            </TouchableOpacity>
             {
               this.state.index !== null  && (
                 <View style={styles.select}>
@@ -266,5 +288,18 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignSelf: "center",
         margin: 20
-      }
+      },
+      buttonClose: {
+        marginBottom:20,
+        marginLeft:'42%',
+        position:'absolute',
+        bottom: 0,
+        zIndex:5,
+        borderRadius:50,
+        borderColor:"#000000",
+        borderWidth:2,
+        backgroundColor:"#FFF",
+        maxWidth:55,
+        minWidth:55
+    },
 })

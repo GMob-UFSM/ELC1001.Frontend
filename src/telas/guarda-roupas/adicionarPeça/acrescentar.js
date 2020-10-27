@@ -30,12 +30,10 @@ export default class Acrescentar extends Component {
     };
 
     refreshStates = () => {
-        this.setState({  
-            body_part: '',
-            model: '',
-            manufactor: '',
-            default_image: ''
-        });
+        const blank = '';
+        this.handleModelChange(blank);
+        this.handleBrandChange(blank);
+        this.handleDescriptionChange(blank);
     } 
 
     RegisterGarment = async() => {
@@ -55,21 +53,31 @@ export default class Acrescentar extends Component {
                 AsyncStorage.setItem("@Baloo:garmentID", response.data._id);
                 this.props.navigation.navigate('Publicar');
             }
-            
-            this.refreshStates();
+
+            ///this.refreshStates();
 
         }catch(err){
             console.log("catch: " + err);
-            this.refreshStates();
+            //this.refreshStates();
         }
     }
 
     CancelOperation = async() => {
 
-        this.refreshStates();
+        //this.refreshStates();
         AsyncStorage.removeItem("@Baloo:uri")
         this.props.navigation.navigate('Camera')
     }
+
+    async componentDidMount(){
+
+        const { navigation } = this.props;
+        this.focusListener = navigation.addListener("didBlur", () => {
+            this.refreshStates();
+        });
+
+    }
+
 
     render() {
         return(
