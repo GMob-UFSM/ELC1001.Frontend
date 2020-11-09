@@ -53,11 +53,11 @@ export default class SignUp extends Component {
               username: this.state.username,
               email: this.state.email,
               password: this.state.password,
+            }).then((response) => {
+              this.setState({ success: 'Conta criada com sucesso! Redirecionando para o login', error: '' });
+              setTimeout(this.goToLogin, 2000);
             });
     
-            this.setState({ success: 'Conta criada com sucesso! Redirecionando para o login', error: '' });
-    
-            setTimeout(this.goToLogin, 2500);
           } catch (_err) {
             console.log(_err)
             this.setState({ error: 'Houve um problema com o cadastro, verifique os dados preenchidos!' });
@@ -74,7 +74,6 @@ export default class SignUp extends Component {
         return (
             <LinearGradient style={styles.container} colors={['#CEBBBA', '#CFDBDB']} locations={[0,.7]}>
                 <ScrollView>
-                {this.state.success.length !== 0 && <Text style={styles.sucessMessage}>{this.state.success}</Text>}
                 <View style={styles.postContainer}>
                   <View>
                     <Text style={styles.text}>Qual é o seu nome?</Text>
@@ -90,7 +89,7 @@ export default class SignUp extends Component {
                     autoCapitalize="none"
                     autoCorrect={false}/>
                   </View>
-                    <Text style={styles.text}>Esclha o seu nome de usúario</Text>
+                    <Text style={styles.text}>Escolha o seu nome de usúario</Text>
                     <TextInput style={styles.textInput} 
                     value={this.state.username}
                     onChangeText={this.handleUsernameChange}
@@ -108,8 +107,9 @@ export default class SignUp extends Component {
                     onChangeText={this.handlePasswordChange}
                     autoCapitalize="none"
                     autoCorrect={false}/>
-                    
+
                     {this.state.error.length !== 0 && <Text style={styles.errorMessage}>{this.state.error}</Text>}
+                    {this.state.success.length !== 0 && <Text style={styles.sucessMessage}>{this.state.success}</Text>}
                     <View style={{margin: 40, marginTop: 50, flexDirection: 'row', alignItems: "center", justifyContent: "center"}}>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
                         <Text style={{fontSize: 25, color: "#4E3D42", alignSelf: "center", marginRight: 20}}>cancelar</Text>

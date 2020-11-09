@@ -28,18 +28,25 @@ export default class SignIn extends Component {
             const response = await api.post('/api/v1/user/login', {
               email: this.state.email,
               password: this.state.password,
+            }).then((response) => {
+
+              if(response.status == 200){
+                this.sucessLogin(response.data.token);
+              }
+
             });
 
-            await AsyncStorage.setItem('@Baloo:token', response.data.token);
-
-            
-            this.props.navigation.navigate('MainMenu')
           } catch (_err) {
-            console.log(_err)
+            console.log(_err);
             this.setState({ error: 'Houve um problema com o login, verifique suas credenciais!' });
           }
         }
       };
+
+      sucessLogin = async (token) => {
+        await AsyncStorage.setItem('@Baloo:token', token);
+        this.props.navigation.navigate('MainMenu');
+      }
 
     render () {
         return(

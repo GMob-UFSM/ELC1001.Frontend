@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     },
     nome: {
         color: '#4E3D42',
-        fontSize: 24,
+        fontSize: 20,
         fontWeight: 'bold'
     },
     localizacao: {
@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         fontSize: 22,
         marginBottom: 5,
+        marginTop: 10
     },
     input: {
         backgroundColor: 'white',
@@ -72,7 +73,8 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
     inputWithoutMarginBottom: {
-        marginBottom: 5
+        marginBottom: 5,
+        margin: 10
     },
     bio: {
         color: color.accent,
@@ -117,7 +119,7 @@ export default class Perfil extends Component {
             loading: false,
             refresh: true, 
             total: 0,
-            mode: 'initializing'
+            mode: 'initializing',
         }
     }
 
@@ -131,7 +133,7 @@ export default class Perfil extends Component {
         },300);
         api.get('/api/v1/user/me').then((response) => {
             this.setState((state) => {
-                return {...response.data, mode: 'loaded'}
+                return {...response.data.user, mode: 'loaded'}
             })
         },(error) => {
             console.log(error)
@@ -254,7 +256,10 @@ export default class Perfil extends Component {
                             <View style={styles.header}>
                                 <Image style={styles.image} source={{uri: 'data:image/jpeg;base64,' + this.state.image}}/>
                                 <Text style={styles.nome}>{`${this.state.name.first} ${this.state.name.last}`}</Text>
-                                <Text style={styles.localizacao}>{this.state.localization}</Text>
+                                {this.state.localizacao
+                                    ? <Text style={styles.localizacao}>{this.state.localization}</Text>
+                                    : null
+                                }
                                 <View style={styles.buttonArea}>
                                     <TouchableOpacity
                                         onPress={this.enterEditMode.bind(this)}
@@ -263,7 +268,8 @@ export default class Perfil extends Component {
                                     </TouchableOpacity>
                                 </View>
                             </View>
-                            <View style={styles.bioContainer}>
+                            {this.state.bio
+                            ? <View style={styles.bioContainer}>
                                 <TextInput style={[styles.input, styles.bio]}
                                     numberOfLines={4}
                                     multiline={true}
@@ -272,6 +278,8 @@ export default class Perfil extends Component {
                                     editable={false}
                                 />
                             </View>
+                            : null
+                            }
                         </View>
                         <LinearGradient style={styles.body} colors={['#CEBBBA', '#CFDBDB']} locations={[0,.7]}>
                         <FlatList

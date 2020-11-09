@@ -11,7 +11,6 @@ export default class Looks extends Component {
         this.state = {
             look: [],
             page: 0,
-            token: '', 
             loading: false,
             refresh: true, 
             total: 0,
@@ -20,16 +19,12 @@ export default class Looks extends Component {
 
     async componentDidMount() {
 
-        const asyncToken = await AsyncStorage.getItem('@Baloo:token');
-        console.log("COMPONETDIDMOUNT"); 
+      const { navigation } = this.props;
+      this.focusListener = navigation.addListener("willFocus", () => {
 
-        const AuthStr = 'Bearer '.concat(asyncToken);  
-
-        this.setState({
-            token: AuthStr
-        })
-
-        this.loadPage() 
+        this.refreshList();
+            
+      });
         
     }
 
@@ -43,7 +38,7 @@ export default class Looks extends Component {
 
             this.setState({ loading: true });
 
-            const response = await api.get(`/api/v1/look?skip=${pageNumber*20}&limit=20`, { 'headers': { 'Authorization': this.state.token } });
+            const response = await api.get(`/api/v1/look?skip=${pageNumber*20}&limit=20`);
             const data = await response.data.data;
 
             console.log("DATA: " + data.torso_image + "Response.data: " + response.data);
