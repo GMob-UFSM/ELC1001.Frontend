@@ -90,9 +90,9 @@ export default class Camisas extends Component {
         console.log("TOTAL" + this.state.total)
         return ( 
             <View style={styles.container}>
-                <LinearGradient style={{flex: 9}} colors={['#CEBBBA', '#CFDBDB']} locations={[0,.7]}>
+                <LinearGradient style={{flex: 9, justifyContent: "center", alignContent: "center"}} colors={['#CEBBBA', '#CFDBDB']} locations={[0,.7]}>
                 <FlatList
-                contentContainerStyle={{paddingLeft: 5, paddingTop: 10}}
+                contentContainerStyle={{paddingLeft: 5, paddingTop: 10, alignSelf: "center", alignContent: "center", justifyContent: "center"}}
                 numColumns={2} 
                 data={this.state.garment}
                 onEndReached={() => {if(!this.onEndReachedCalledDuringMomentum && this.state.total !== 0){
@@ -129,7 +129,9 @@ export default class Camisas extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FFF'
+        backgroundColor: '#FFF',
+        justifyContent: "center",
+        alignContent: "center"
     },
     text: {
         flex: 0,
@@ -143,5 +145,6 @@ const styles = StyleSheet.create({
         flexBasis: 0,
         margin: 5, 
         flexDirection: 'row',
+        alignSelf: "center",
     },
 })

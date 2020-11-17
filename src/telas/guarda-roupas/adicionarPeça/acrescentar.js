@@ -98,7 +98,7 @@ export default class Acrescentar extends Component {
                 </View>
 
                 <View style={styles.boxContainer}>
-                    <Text style={styles.text}>Modelo</Text>
+                    <Text style={styles.text}>Tamanho</Text>
                     <TextInput style={styles.textInput} 
                     placeholder= "ex.: 37"
                     value={this.state.modelo}

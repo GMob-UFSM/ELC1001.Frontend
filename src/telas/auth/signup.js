@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, TextInput, Text, StyleSheet, TouchableOpacity, TouchableHighlight, Image, StatusBar, ScrollView } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
+import * as Sentry from "@sentry/react-native";
 
 import api from '../../services/api'
 
@@ -14,6 +15,7 @@ export default class SignUp extends Component {
     state = {
         email: '',
         password: '',
+        c_password: '',
         username: '',
         firstname: '',
         lastname: '',
@@ -38,6 +40,10 @@ export default class SignUp extends Component {
       handlePasswordChange = (password) => {
         this.setState({ password });
       };
+
+      handleConfirmPasswordChange = (c_password) => {
+        this.setState({ c_password });
+      };
     
       handleBackToLoginPress = () => {
         this.props.navigation.goBack();
@@ -46,6 +52,8 @@ export default class SignUp extends Component {
       handleSignUpPress = async () => {
         if (this.state.email.length === 0 || this.state.password.length === 0) {
           this.setState({ error: 'Preencha todos os campos para continuar!' }, () => false);
+        } else if(this.state.password !== this.state.c_password){
+          this.setState({ error: 'Senhas distintas! Por favor, confirme sua senha novamente' }, () => false);
         } else {
           try {
             await api.post('/api/v1/user/register', {
@@ -59,7 +67,8 @@ export default class SignUp extends Component {
             });
     
           } catch (_err) {
-            console.log(_err)
+            console.log(_err);
+            Sentry.captureException(_err);
             this.setState({ error: 'Houve um problema com o cadastro, verifique os dados preenchidos!' });
           }
         }
@@ -107,10 +116,18 @@ export default class SignUp extends Component {
                     onChangeText={this.handlePasswordChange}
                     autoCapitalize="none"
                     autoCorrect={false}/>
+                    <Text style={styles.text}>Confirme sua senha</Text>
+                    <TextInput secureTextEntry={true} style={styles.textInput} 
+                    value={this.state.c_password}
+                    onChangeText={this.handleConfirmPasswordChange}
+                    autoCapitalize="none"
+                    autoCorrect={false}/>
 
-                    {this.state.error.length !== 0 && <Text style={styles.errorMessage}>{this.state.error}</Text>}
-                    {this.state.success.length !== 0 && <Text style={styles.sucessMessage}>{this.state.success}</Text>}
-                    <View style={{margin: 40, marginTop: 50, flexDirection: 'row', alignItems: "center", justifyContent: "center"}}>
+                </View>
+                </ScrollView>
+                {this.state.error.length !== 0 && <Text style={styles.errorMessage}>{this.state.error}</Text>}
+                {this.state.success.length !== 0 && <Text style={styles.sucessMessage}>{this.state.success}</Text>}
+                <View style={{margin: 40, marginTop: 10, flexDirection: 'row', alignItems: "center", justifyContent: "center"}}>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
                         <Text style={{fontSize: 25, color: "#4E3D42", alignSelf: "center", marginRight: 20}}>cancelar</Text>
                     </TouchableOpacity>
@@ -120,10 +137,7 @@ export default class SignUp extends Component {
                                 source={okButton}
                             />
                     </TouchableHighlight>
-    
-                    </View>
                 </View>
-                </ScrollView>
                 </LinearGradient>
         )
     }
@@ -139,7 +153,7 @@ const styles = StyleSheet.create({
     postContainer: {
         flex: 1,
         justifyContent: "center",
-        marginBottom: 100,
+        marginBottom: 20,
         flexDirection: 'column'
     },
     text: {
@@ -152,20 +166,20 @@ const styles = StyleSheet.create({
     textInput: {
         borderRadius: 20,
         backgroundColor: "#FFF",
+        width: '95%',
+        alignSelf: "center"
 
     },
     errorMessage: {
         textAlign: "center",
         color: "#ce2029",
         fontSize: 16,
-        marginBottom: 15,
-        marginHorizontal: 20,
     },
     sucessMessage: {
         textAlign: "center",
         color: "#08a092",
         fontSize: 16,
         marginBottom: 15,
-        marginHorizontal: 20
+        marginHorizontal: 20,
     }
 })

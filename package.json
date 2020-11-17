@@ -12,19 +12,20 @@
   "dependencies": {
     "@react-native-community/async-storage": "^1.9.0",
     "@react-native-community/cameraroll": "^1.5.2",
+    "@sentry/react-native": "^2.0.0",
     "axios": "^0.19.2",
     "react": "16.9.0",
     "react-native": "^0.61.4",
     "react-native-base64": "0.0.2",
     "react-native-camera": "^3.21.0",
     "react-native-gesture-handler": "^1.5.2",
+    "react-native-image-picker": "^2.3.1",
+    "react-native-linear-gradient": "^2.5.6",
+    "react-native-plain-calendar": "^1.0.5",
     "react-native-reanimated": "^1.2.0",
     "react-native-svg": "^12.0.3",
     "react-native-svg-transformer": "^0.14.3",
     "react-native-vector-icons": "^6.6.0",
-    "react-native-linear-gradient": "^2.5.6",
-    "react-native-image-picker": "^2.3.1",
-    "react-native-plain-calendar": "^1.0.5",
     "react-navigation": "^3.11.1"
   },
   "devDependencies": {

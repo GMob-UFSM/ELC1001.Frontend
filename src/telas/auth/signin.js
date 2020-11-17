@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, TextInput, Text, StyleSheet, TouchableOpacity, StatusBar } from 'react-native'
 import AsyncStorage  from '@react-native-community/async-storage'
 import LinearGradient from 'react-native-linear-gradient'
+import * as Sentry from "@sentry/react-native";
 
 import api from '../../services/api'
 
@@ -38,6 +39,7 @@ export default class SignIn extends Component {
 
           } catch (_err) {
             console.log(_err);
+            Sentry.captureException(_err);
             this.setState({ error: 'Houve um problema com o login, verifique suas credenciais!' });
           }
         }

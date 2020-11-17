@@ -10,7 +10,8 @@ buildscript {
     }
     repositories {
         google()
-        jcenter()
+        //jcenter()
+        maven { url "https://jcenter.bintray.com" }// Linha adicionada // força o uso de http
     }
     dependencies {
         classpath("com.android.tools.build:gradle:3.4.2")
@@ -25,6 +26,7 @@ allprojects {
     repositories {
         maven { url "https://jitpack.io" } // Linha adicionada
         maven { url "https://maven.google.com" } // Linha adicionada
+        maven { url "https://jcenter.bintray.com" }// Linha adicionada //Força o uso de http
         mavenLocal()
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
@@ -36,7 +38,8 @@ allprojects {
         }
 
         google()
-        jcenter()
+        //jcenter()
+        maven { url "https://jcenter.bintray.com" }// Linha adicionada // força o uso de http
         maven { url 'https://jitpack.io' }
     }
 }
