@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {SafeAreaView, View, Text, FlatList, StyleSheet, Image, ActivityIndicator} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage'
 import api from '../services/api'
+import LinearGradient from 'react-native-linear-gradient'
 
 export default class Looks extends Component {
 
@@ -75,9 +76,9 @@ export default class Looks extends Component {
         <View style={styles.gradientContainer}>
           <View style={styles.containerTitle}>
             <Text style={styles.title}>looks</Text>
-          </View>
+          </View> 
 
-          <View style={styles.container}>
+          <LinearGradient style={styles.container} colors={['#CEBBBA', '#CFDBDB']} locations={[0,.7]}>
             <FlatList
               data={this.state.look}
               numColumns={2}
@@ -112,7 +113,7 @@ export default class Looks extends Component {
                 )
               }
             />
-          </View>
+          </LinearGradient>
         </View>
       </SafeAreaView>
     );

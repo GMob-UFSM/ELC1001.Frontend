@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, FlatList, Image, TouchableHighlight, ActivityIndicator } from 'react-native'
+import { View, Text, StyleSheet, FlatList, Image, TouchableHighlight, ActivityIndicator, Dimensions } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import LinearGradient from 'react-native-linear-gradient'
 
@@ -88,11 +88,13 @@ export default class Camisas extends Component {
         console.log("GARMENT: " + this.state.garment)
         console.log(this.state.garment.length)
         console.log("TOTAL" + this.state.total)
+        const win = Dimensions.get('window');
+        console.log("WIN: ", win);
         return ( 
             <View style={styles.container}>
                 <LinearGradient style={{flex: 9, justifyContent: "center", alignContent: "center"}} colors={['#CEBBBA', '#CFDBDB']} locations={[0,.7]}>
                 <FlatList
-                contentContainerStyle={{paddingLeft: 5, paddingTop: 10, alignSelf: "center", alignContent: "center", justifyContent: "center"}}
+                contentContainerStyle={{paddingTop: 5, alignSelf: "center", alignContent: "center", justifyContent: "center"}}
                 numColumns={2} 
                 data={this.state.garment}
                 onEndReached={() => {if(!this.onEndReachedCalledDuringMomentum && this.state.total !== 0){
@@ -109,7 +111,7 @@ export default class Camisas extends Component {
                 renderItem={({ item }) => (
                      <View>  
                          <TouchableHighlight style={styles.garmentBox} onPress={() => this.peça(item)}> 
-                            <Image style={{width: 170, height: 180, alignSelf: "center", margin: 10}} source={{uri: item.default_image}} />
+                            <Image style={{borderRadius: 20, aspectRatio: 0.95, height: win.height/4.1, alignSelf: "center", margin: 9}} source={{uri: item.default_image}} />
                         </TouchableHighlight>          
                     </View>
                 
@@ -142,9 +144,7 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         borderRadius: 20,
         flexGrow: 1,
-        flexBasis: 0,
         margin: 5, 
-        flexDirection: 'row',
-        alignSelf: "center",
+        alignSelf: "center"
     },
 })

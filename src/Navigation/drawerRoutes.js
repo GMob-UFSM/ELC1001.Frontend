@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, View, TouchableHighlight, StyleSheet } from 'react-native'
+import { ScrollView, Text, View, StyleSheet, Dimensions } from 'react-native'
 import { DrawerActions } from 'react-navigation'
 import AsyncStorage from '@react-native-community/async-storage';
 import 'react-native-gesture-handler'
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import LinearGradient from 'react-native-linear-gradient'
+
 
 class DrawerScreen extends Component {
     
@@ -22,36 +25,47 @@ class DrawerScreen extends Component {
     }                                       
 
     render() {
+        const win = Dimensions.get('window');
+        console.log(win)
         return (
-            <View style={{backgroundColor:"#C58882", flex: 1}}>
+            <LinearGradient style={{backgroundColor:"#C58882", flex: 1}} colors={['#CEBBBA', '#CFDBDB']} locations={[0, 7]}>
                 <ScrollView>
-                    <View style={{alignItems: 'center'}}>
-                        <View style={{marginEnd: 50, marginTop: 30}}>
-                        <TouchableHighlight style={{margin: -15}} onPress={() => this.props.navigation.navigate('GuardaRoupa')}>
-                            <Text style={styles.textStyle}>Guarda-roupas</Text>
-                        </TouchableHighlight>
-                        <Text style={{fontSize: 25, color: "white", marginLeft: -15}}>______</Text>
-                        <TouchableHighlight style={{margin: -15}} onPress={() => this.props.navigation.navigate('Perfil')}>
-                            <Text style={styles.textStyle}>Perfil</Text>
-                        </TouchableHighlight>
-                        <Text style={{fontSize: 25, color: "white", marginLeft: -15}}>______</Text>
-                        <TouchableHighlight style={{margin: -15}} onPress={() => this.props.navigation.navigate('Sobre')}>
-                            <Text style={styles.textStyle}>Sobre</Text>
-                        </TouchableHighlight>
-                        <Text style={{fontSize: 25, color: "white", marginLeft: -15}}>______</Text>
-                        <TouchableHighlight style={{margin: -15}} onPress={() => this.props.navigation.navigate('Ajuda')}>
-                            <Text style={styles.textStyle}>Ajuda</Text>
-                        </TouchableHighlight>
-                        <Text style={{fontSize: 25, color: "white", marginLeft: -15}}>______</Text>
-                        <TouchableHighlight style={{margin: -15}} onPress={this.onSignOut}>
-                            <Text style={styles.textStyle}>Sair</Text>
-                        </TouchableHighlight>
-                        <Text style={{fontSize: 25, color: "white", marginLeft: -15}}>______</Text>
-                        
-                        </View>
+                    <View style={{marginTop: 20, marginEnd: 50, alignItems: "center"}}>
+                        <TouchableOpacity style={styles.textContainer} onPress={() => this.props.navigation.navigate('GuardaRoupa')}>
+                            <View>
+                                <Text style={styles.textStyle}>Guarda-Roupa</Text>
+                                <Text style={styles.line}>_________</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.textContainer} onPress={() => this.props.navigation.navigate('Perfil')}>
+                            <View>
+                                <Text style={styles.textStyle}>Perfil</Text>
+                                <Text style={styles.line}>_________</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.textContainer} onPress={() => this.props.navigation.navigate('Sobre')}>
+                            <View>
+                                <Text style={styles.textStyle}>Sobre</Text>
+                                <Text style={styles.line}>_________</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.textContainer} onPress={() => this.props.navigation.navigate('Ajuda')}>
+                            <View>
+                                <Text style={styles.textStyle}>Ajuda</Text>
+                                <Text style={styles.line}>_________</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.textContainer} onPress={() => this.props.navigation.navigate('Sair')}>
+                            <View>
+                                <Text style={styles.textStyle}>Sair</Text>
+                                <Text style={styles.line}>_________</Text>
+                            </View>
+                        </TouchableOpacity>
+         
+
                     </View>
                 </ScrollView>
-            </View>
+            </LinearGradient>
         )
     }
 }
@@ -61,8 +75,19 @@ const styles = StyleSheet.create ({
         fontSize: 17,
         color: "#4E3D42",
         alignSelf: 'flex-start',
-        marginTop: 30
+        marginTop: 20
 
+    }, 
+    line: {
+        fontSize: 25, 
+        color: "white", 
+        marginStart: -40, 
+        marginTop: -15
+
+    },
+    textContainer: {
+        alignSelf: "center",
+        width: 150,
     }
 
 })

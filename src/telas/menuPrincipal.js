@@ -57,9 +57,9 @@ const styles = StyleSheet.create({
     button1: {
         borderRadius: 20, 
         flex: 1,
-        width: 390,
+        aspectRatio: 1.95,
         margin: 3,
-        justifyContent: "center"
+        justifyContent: "center",
     },
     textContainer: {
         borderRadius: 16,

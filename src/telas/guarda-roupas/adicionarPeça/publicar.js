@@ -80,21 +80,6 @@ export default class Publicar extends Component {
                     </TouchableHighlight>
                     <Text style={{fontSize: 15, alignSelf: "center", paddingTop: 3, color: "#4E3D42"}}>compartilhe no baloo</Text>
                 </View>
-
-                <View style={styles.buttonsContainer}>
-                    <Text style={{fontSize: 14, alignSelf: "flex-start", paddingTop: 3, paddingRight: 30,color: "#4E3D42"}}>ou nas rede Sociais:</Text>
-                    <View style={{justifyContent: "center", alignContent: "center", flexDirection: "row"}}>
-                        <TouchableHighlight style={{height: 50, width: 50, alignSelf: "center", margin: 15}}>
-                            <Enjoei width={76} height={76}/>
-                        </TouchableHighlight>
-                        <TouchableHighlight style={{height: 50, width: 50, alignSelf: "center", margin: 15}}>
-                            <Facebook width={76} height={76}/>
-                        </TouchableHighlight>
-                        <TouchableHighlight style={{height: 50, width: 50, alignSelf: "center", margin: 15}}>
-                            <Instagram width={76} height={76} />
-                        </TouchableHighlight>
-                    </View>
-                </View>
                 
                 <View style={styles.postContainer}>
                     <View style={styles.touchableContainer}>
@@ -133,7 +118,7 @@ const styles = StyleSheet.create ({
         borderRadius: 20,
         alignSelf: "center",
         backgroundColor: "white",
-        marginTop: 15,
+        marginTop: 5,
     },
     shareButton: {
         height: 50,
@@ -188,3 +173,21 @@ const styles = StyleSheet.create ({
                         <Text style={styles.text}>cancelar</Text>
                     </TouchableOpacity>
 */
+
+
+/*
+                <View style={styles.buttonsContainer}>
+                    <Text style={{fontSize: 14, alignSelf: "flex-start", paddingTop: 3, paddingRight: 30,color: "#4E3D42"}}>ou nas rede Sociais:</Text>
+                    <View style={{justifyContent: "center", alignContent: "center", flexDirection: "row"}}>
+                        <TouchableHighlight style={{height: 50, width: 50, alignSelf: "center", margin: 15}}>
+                            <Enjoei width={76} height={76}/>
+                        </TouchableHighlight>
+                        <TouchableHighlight style={{height: 50, width: 50, alignSelf: "center", margin: 15}}>
+                            <Facebook width={76} height={76}/>
+                        </TouchableHighlight>
+                        <TouchableHighlight style={{height: 50, width: 50, alignSelf: "center", margin: 15}}>
+                            <Instagram width={76} height={76} />
+                        </TouchableHighlight>
+                    </View>
+                </View>
+*/ 

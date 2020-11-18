@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image, FlatList, ActivityIndicator } from 'react-native'
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image, FlatList, ActivityIndicator, Dimensions } from 'react-native'
 import AsyncStorage  from '@react-native-community/async-storage';
 import LinearGradient from 'react-native-linear-gradient'
 import ImagePicker from 'react-native-image-picker';
@@ -238,6 +238,7 @@ export default class Perfil extends Component {
     }
 
     render() {
+        const win = Dimensions.get('window');
         switch(this.state.mode) {
             case 'initializing':
                 return (<View></View>)
@@ -299,7 +300,7 @@ export default class Perfil extends Component {
                             renderItem={({ item }) => (
                                 <View>  
                                     <View style={styles.garmentBox}>
-                                        <Image style={{width: 160, height: 170, alignSelf: "center", margin: 10}} source={{uri: item.default_image}} />   
+                                        <Image style={{borderRadius: 20, aspectRatio: 0.95, height: win.height/4.1, alignSelf: "center", margin: 9}} source={{uri: item.default_image}} />   
                                     </View>      
                                 </View>
                 
