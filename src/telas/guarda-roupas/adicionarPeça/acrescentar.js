@@ -6,6 +6,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import okbutton from '../../../assets/buttons/okbutton.png'
 
 import api from '../../../services/api'
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default class Acrescentar extends Component {
     state = {
@@ -81,7 +82,7 @@ export default class Acrescentar extends Component {
 
     render() {
         return(
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 <LinearGradient style={{flex: 1, paddingTop: 30}} colors={['#CEBBBA', '#CFDBDB']} locations={[0,.7]}>
                 <View style={styles.boxContainer}>
                     <Text style={styles.text}>Peça</Text>
@@ -128,7 +129,7 @@ export default class Acrescentar extends Component {
                     multiline={true} />
                 </View>
                 
-                <View style={{justifyContent: "center", alignContent: "center", margin: 50, flexDirection: "row"}}>
+                <View style={{justifyContent: "center", alignContent: "center", margin: 20, flexDirection: "row"}}>
                     <TouchableOpacity onPress={this.CancelOperation} style={{alignSelf: "center", marginRight: 15}}>
                         <Text style={{fontSize: 17, fontWeight: "bold", color: "#4E3D42"}}>cancelar</Text>
                     </TouchableOpacity>
@@ -137,7 +138,7 @@ export default class Acrescentar extends Component {
                     </TouchableHighlight>
                 </View>
                 </LinearGradient>
-            </View>
+            </ScrollView>
         )
     }
 } 

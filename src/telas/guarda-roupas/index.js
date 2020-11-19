@@ -80,6 +80,7 @@ export default class Camisas extends Component {
     peça(item) {
 
         console.log("_id "+ item._id);
+        console.log("TAMANHO: ", item.model);
         AsyncStorage.setItem("@Baloo:garmentID", item._id);
         this.props.navigation.navigate('Publicar');
     }
@@ -109,10 +110,13 @@ export default class Camisas extends Component {
                 refreshing={this.state.refresh}
                 keyExtractor={post => String(post.id)}
                 renderItem={({ item }) => (
-                     <View>  
+                     <View style={{marginBottom: 5}}>  
                          <TouchableHighlight style={styles.garmentBox} onPress={() => this.peça(item)}> 
                             <Image style={{borderRadius: 20, aspectRatio: 0.95, height: win.height/4.1, alignSelf: "center", margin: 9}} source={{uri: item.default_image}} />
-                        </TouchableHighlight>          
+                        </TouchableHighlight>  
+                        <View style={{ borderRadius: 100, backgroundColor: 'white', height: 23, width: 23, borderColor: 'black', borderWidth: 1, marginTop: -30, marginStart: 10}}>
+                            <Text style={{alignSelf: "center"}}>{`${item.model}`}</Text>
+                        </View>        
                     </View>
                 
                  )}
@@ -144,7 +148,7 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         borderRadius: 20,
         flexGrow: 1,
-        margin: 5, 
+        margin: 5,
         alignSelf: "center"
     },
 })

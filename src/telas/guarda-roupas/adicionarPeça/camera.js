@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet, Image, PermissionsAndroid, Modal, ScrollView, Button, TouchableHighlight } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, Image, PermissionsAndroid, Modal, ScrollView, Button, TouchableHighlight, AppState } from 'react-native'
 import { RNCamera } from 'react-native-camera'
 import CameraRoll from '@react-native-community/cameraroll'
 import AsyncStorage from '@react-native-community/async-storage';
@@ -171,7 +171,7 @@ export default class Camera extends Component {
               </TouchableHighlight>}
 
           </View>
-          <TouchableOpacity onPress={() => { this.toggleModal(); this.getPhoto() }} style={{alignSelf: 'center', flex: 1, justifyContent: "center"}}>
+          <TouchableOpacity onPress={() => { this.toggleModal(); this.getPhoto() }} style={{alignSelf: 'center', flex: 1, justifyContent: "center", marginEnd: 10}}>
             <Text style={{alignSelf: "center", fontSize: 17, fontWeight: "bold", color: "white"}}>camera roll</Text>
           </TouchableOpacity>
         </View>
@@ -196,7 +196,7 @@ export default class Camera extends Component {
                     >
                       <Image
                         style={{
-                          width: 150,
+                          aspectRatio: 1,
                           height: 150
                         }}
                         source={{uri: p.node.image.uri}}
