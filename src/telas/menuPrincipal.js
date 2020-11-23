@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { View, StyleSheet, ImageBackground, TouchableOpacity, Text, Image} from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
 
-import looks from '../assets/images/looks.jpeg'
-import calendar from '../assets/images/calendar.jpeg' 
-import comporlook from '../assets/images/comporlook.jpeg'
+import looksBackground from '../assets/images/bg-looks.jpg'
+import calendarioBackground from '../assets/images/bg-calendario.jpg' 
+import comporlookBackground from '../assets/images/bg-comporlook.jpg'
+import espacotrocaBackground from '../assets/images/bg-espacotroca.jpg'
 import looksIcon from '../assets/icons/looks.png'
 import calendarioIcon from '../assets/icons/calendario.png'
 import comporLookIcon from '../assets/icons/comporlook.png'
@@ -30,7 +31,7 @@ export default class MainMenu extends Component {
     render() {
         return(
             <View style={styles.container}>
-                <ImageBackground source={looks} style={styles.button1} imageStyle={{ borderRadius: 20 }}>
+                <ImageBackground source={looksBackground} style={styles.button1} imageStyle={{ borderRadius: 20 }}>
                     <View style={styles.buttonOverlay}>
                         <TouchableOpacity style={styles.textContainer} onPress={() => this.props.navigation.navigate('Looks')}>
                             <Image source={looksIcon} />
@@ -38,7 +39,7 @@ export default class MainMenu extends Component {
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>
-                <ImageBackground source={calendar} style={styles.button1} imageStyle={{ borderRadius: 20 }}>
+                <ImageBackground source={calendarioBackground} style={styles.button1} imageStyle={{ borderRadius: 20 }}>
                     <View style={styles.buttonOverlay}>
                         <TouchableOpacity style={styles.textContainer} onPress={() => this.props.navigation.navigate('Calendar')}>
                             <Image source={calendarioIcon} />
@@ -46,7 +47,7 @@ export default class MainMenu extends Component {
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>
-                <ImageBackground source={comporlook} style={styles.button1} imageStyle={{ borderRadius: 20 }}>
+                <ImageBackground source={comporlookBackground} style={styles.button1} imageStyle={{ borderRadius: 20 }}>
                     <View style={styles.buttonOverlay}>
                         <TouchableOpacity style={styles.textContainer} onPress={() => this.props.navigation.navigate('ComporLook')}>
                             <Image source={comporLookIcon} />
@@ -54,7 +55,7 @@ export default class MainMenu extends Component {
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>
-                <ImageBackground source={comporlook} style={styles.button1} imageStyle={{ borderRadius: 20 }}>
+                <ImageBackground source={espacotrocaBackground} style={styles.button1} imageStyle={{ borderRadius: 20 }}>
                     <View style={styles.buttonOverlay}>
                         <TouchableOpacity style={styles.textContainer} onPress={() => this.props.navigation.navigate('ComporLook')}>
                             <Image source={espacoTrocaIcon} />
