@@ -19,7 +19,7 @@ class DrawerScreen extends Component {
 
     onSignOut = async () => {
            AsyncStorage.clear();
-           const token = await AsyncStorage.getItem("@Baloo:toke");
+           const token = await AsyncStorage.getItem("@Baloo:token");
            console.log("TOKEN DRAWER: " + token)
            this.props.navigation.navigate('Login');
     }                                       
@@ -55,7 +55,7 @@ class DrawerScreen extends Component {
                                 <Text style={styles.line}>_________</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.textContainer} onPress={() => this.props.navigation.navigate('Sair')}>
+                        <TouchableOpacity style={styles.textContainer} onPress={() => this.onSignOut()}>
                             <View>
                                 <Text style={styles.textStyle}>Sair</Text>
                                 <Text style={styles.line}>_________</Text>
