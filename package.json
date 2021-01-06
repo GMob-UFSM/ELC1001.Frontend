@@ -13,7 +13,7 @@
     "@react-native-community/async-storage": "^1.9.0",
     "@react-native-community/cameraroll": "^1.5.2",
     "@sentry/react-native": "^2.0.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "react": "16.9.0",
     "react-native": "^0.61.4",
     "react-native-base64": "0.0.2",
